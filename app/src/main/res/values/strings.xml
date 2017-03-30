@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name" translatable="false">Base project</string>
+    <string name="app_name" translatable="false">Day Dreaming</string>
     <string name="url_service" translatable="false">https://api.github.com/</string><!-- TODO -->
 
     <string name="loading">Loading…</string>
