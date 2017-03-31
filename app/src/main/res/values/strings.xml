@@ -10,4 +10,7 @@
     <string name="log_in">Log in</string>
     <string name="field_required">Field required</string>
     <string name="the_email_not_valid">The email is not valid</string>
+    <string name="home_custom">CUSTOM</string>
+    <string name="home_trending">TRENDING</string>
+    <string name="home_random">RANDOM</string>
 </resources>

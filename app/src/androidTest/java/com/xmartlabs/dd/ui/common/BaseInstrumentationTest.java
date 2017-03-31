@@ -9,7 +9,7 @@ import android.support.test.runner.lifecycle.ActivityLifecycleMonitorRegistry;
 import android.support.test.runner.lifecycle.Stage;
 
 import com.annimon.stream.Objects;
-import com.xmartlabs.dd.BaseProjectApplication;
+import com.xmartlabs.dd.DDApplication;
 
 import org.junit.Before;
 import org.junit.runner.RunWith;
@@ -29,7 +29,7 @@ public abstract class BaseInstrumentationTest {
   @CallSuper
   public void setUp() {
     instrumentation = InstrumentationRegistry.getInstrumentation();
-    BaseProjectApplication app = (BaseProjectApplication) instrumentation.getTargetContext().getApplicationContext();
+    DDApplication app = (DDApplication) instrumentation.getTargetContext().getApplicationContext();
     app.inject(this);
     RESTMockServer.reset();
   }

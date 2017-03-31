@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 import com.annimon.stream.Optional;
 import com.hannesdorfmann.fragmentargs.FragmentArgs;
 import com.trello.rxlifecycle2.components.support.RxFragment;
-import com.xmartlabs.dd.BaseProjectApplication;
+import com.xmartlabs.dd.DDApplication;
 import com.xmartlabs.dd.ui.common.BaseProgressDialog;
 
 import butterknife.ButterKnife;
@@ -47,7 +47,7 @@ public abstract class BaseFragment extends RxFragment {
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     FragmentArgs.inject(this);
-    BaseProjectApplication.getContext().inject(this);
+    DDApplication.getContext().inject(this);
   }
 
   @NonNull

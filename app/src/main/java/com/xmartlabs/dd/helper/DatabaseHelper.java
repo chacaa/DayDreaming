@@ -2,7 +2,7 @@ package com.xmartlabs.dd.helper;
 
 import android.support.annotation.NonNull;
 
-import com.xmartlabs.dd.BaseProjectApplication;
+import com.xmartlabs.dd.DDApplication;
 import com.xmartlabs.dd.controller.SessionController;
 import com.xmartlabs.dd.model.Session;
 
@@ -14,7 +14,7 @@ public class DatabaseHelper {
   SessionController sessionController;
 
   public DatabaseHelper() {
-    BaseProjectApplication.getContext().inject(this);
+    DDApplication.getContext().inject(this);
   }
 
   public void deleteAll() {

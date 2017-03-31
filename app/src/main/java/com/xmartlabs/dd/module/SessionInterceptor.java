@@ -1,6 +1,6 @@
 package com.xmartlabs.dd.module;
 
-import com.xmartlabs.dd.BaseProjectApplication;
+import com.xmartlabs.dd.DDApplication;
 import com.xmartlabs.dd.controller.SessionController;
 
 import java.io.IOException;
@@ -18,7 +18,7 @@ public class SessionInterceptor implements Interceptor {
   @Override
   public Response intercept(Chain chain) throws IOException {
     if (sessionController == null) {
-      BaseProjectApplication.getContext().inject(this); // Can't do this in constructor because it's called in a module.
+      DDApplication.getContext().inject(this); // Can't do this in constructor because it's called in a module.
     }
 
     Request request = sessionController.getSession()

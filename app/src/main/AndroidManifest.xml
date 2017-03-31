@@ -16,7 +16,7 @@
     <application
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:name="com.xmartlabs.dd.BaseProjectApplication"
+        android:name="com.xmartlabs.dd.DDApplication"
         android:theme="@style/AppTheme">
 
         <activity
@@ -37,13 +37,10 @@
             </intent-filter>
         </activity>
 
-        <!--
         <activity
-            android:label="@string/welcome"
-            android:name=".ui.WelcomeActivity"
+            android:name=".ui.DashboardActivity"
             android:screenOrientation="portrait"
             />
-        -->
 
     </application>
 </manifest>

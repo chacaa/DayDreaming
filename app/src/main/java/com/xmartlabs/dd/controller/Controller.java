@@ -1,9 +1,9 @@
 package com.xmartlabs.dd.controller;
 
-import com.xmartlabs.dd.BaseProjectApplication;
+import com.xmartlabs.dd.DDApplication;
 
 public abstract class Controller {
   public Controller() {
-    BaseProjectApplication.getContext().inject(this);
+    DDApplication.getContext().inject(this);
   }
 }

@@ -3,7 +3,7 @@ package com.xmartlabs.dd.common.exeption;
 import android.support.annotation.Nullable;
 
 import com.google.gson.Gson;
-import com.xmartlabs.dd.BaseProjectApplication;
+import com.xmartlabs.dd.DDApplication;
 
 import java.io.IOException;
 
@@ -27,7 +27,7 @@ public final class ServiceExceptionWithMessage extends RuntimeException {
   public ServiceExceptionWithMessage(Response<?> response) {
     super("HTTP " + response.code() + " " + response.message());
     //noinspection ThrowableResultOfMethodCallIgnored
-    BaseProjectApplication.getContext().inject(this);
+    DDApplication.getContext().inject(this);
 
     code = response.code();
     message = response.message();

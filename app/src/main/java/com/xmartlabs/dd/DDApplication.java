@@ -22,19 +22,19 @@ import io.fabric.sdk.android.Fabric;
 import io.reactivex.plugins.RxJavaPlugins;
 import timber.log.Timber;
 
-public class BaseProjectApplication extends Application {
-  private static BaseProjectApplication instance;
+public class DDApplication extends Application {
+  private static DDApplication instance;
 
   private ObjectGraph bullet;
 
   @Inject
   GeneralErrorHelper generalErrorHelper;
 
-  public BaseProjectApplication() {
+  public DDApplication() {
     instance = this;
   }
 
-  public static BaseProjectApplication getContext() {
+  public static DDApplication getContext() {
     return instance;
   }
 

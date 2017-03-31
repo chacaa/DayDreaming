@@ -6,7 +6,7 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.support.annotation.NonNull;
 
-import com.xmartlabs.dd.BaseProjectApplication;
+import com.xmartlabs.dd.DDApplication;
 
 @SuppressWarnings("unused")
 public class SystemServiceHelper {
@@ -40,6 +40,6 @@ public class SystemServiceHelper {
   }
 
   private static Object getSystemService(String clipboardService) {
-    return BaseProjectApplication.getContext().getSystemService(clipboardService);
+    return DDApplication.getContext().getSystemService(clipboardService);
   }
 }

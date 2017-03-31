@@ -11,7 +11,7 @@ import android.view.inputmethod.InputMethodManager;
 import com.f2prateek.dart.Dart;
 import com.trello.rxlifecycle2.components.RxActivity;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
-import com.xmartlabs.dd.BaseProjectApplication;
+import com.xmartlabs.dd.DDApplication;
 
 import bullet.ObjectGraph;
 
@@ -28,7 +28,7 @@ public abstract class BaseAppCompatActivity extends RxAppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     Dart.inject(this);
-    BaseProjectApplication.getContext().inject(this);
+    DDApplication.getContext().inject(this);
   }
 
   /**

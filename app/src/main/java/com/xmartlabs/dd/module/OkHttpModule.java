@@ -6,7 +6,7 @@ import android.support.annotation.NonNull;
 
 import com.annimon.stream.Objects;
 import com.moczul.ok2curl.CurlInterceptor;
-import com.xmartlabs.dd.BaseProjectApplication;
+import com.xmartlabs.dd.DDApplication;
 import com.xmartlabs.dd.BuildConfig;
 import com.xmartlabs.dd.BuildType;
 
@@ -57,7 +57,7 @@ public class OkHttpModule {
   @Provides
   @Singleton
   Cache provideCache() {
-    File httpCacheDir = new File(BaseProjectApplication.getContext().getExternalCacheDir(), "cache");
+    File httpCacheDir = new File(DDApplication.getContext().getExternalCacheDir(), "cache");
     if (!httpCacheDir.exists()) {
       //noinspection ResultOfMethodCallIgnored
       httpCacheDir.mkdirs();

@@ -9,7 +9,7 @@ import android.support.annotation.Nullable;
 import android.support.annotation.RequiresPermission;
 import android.support.annotation.StringRes;
 
-import com.xmartlabs.dd.BaseProjectApplication;
+import com.xmartlabs.dd.DDApplication;
 import com.xmartlabs.dd.helper.StringUtils;
 
 import lombok.val;
@@ -108,7 +108,7 @@ public class IntentHelper {
    * @return true if there's an app that can handle the {@code intent}
    */
   public static boolean canDeviceHandleIntent(@NonNull Intent intent) {
-    return BaseProjectApplication.getContext()
+    return DDApplication.getContext()
         .getPackageManager().queryIntentActivities(intent, 0).size() > 0;
   }
 
@@ -118,7 +118,7 @@ public class IntentHelper {
    * @return true if the device has a camera
    */
   public static boolean deviceHasCameraAbility() {
-    return BaseProjectApplication.getContext()
+    return DDApplication.getContext()
         .getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA);
   }
 
@@ -130,6 +130,6 @@ public class IntentHelper {
    */
   @NonNull
   private static String getString(@StringRes int messageRes) {
-    return BaseProjectApplication.getContext().getResources().getString(messageRes);
+    return DDApplication.getContext().getResources().getString(messageRes);
   }
 }

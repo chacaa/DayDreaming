@@ -18,6 +18,7 @@ import com.xmartlabs.dd.module.RestServiceModule;
 import com.xmartlabs.dd.module.SessionInterceptor;
 import com.xmartlabs.dd.ui.BaseActivity;
 import com.xmartlabs.dd.ui.BaseAppCompatActivity;
+import com.xmartlabs.dd.ui.BaseFragment;
 import com.xmartlabs.dd.ui.MainActivity;
 import com.xmartlabs.dd.ui.SingleFragmentActivity;
 import com.xmartlabs.dd.ui.StartActivity;
@@ -39,7 +40,7 @@ import dagger.Component;
     RestServiceModule.class,
 })
 public interface ApplicationComponent {
-  void inject(BaseProjectApplication baseProjectApplication);
+  void inject(DDApplication DDApplication);
 
   void inject(BaseActivity baseActivity);
   void inject(BaseAppCompatActivity baseAppCompatActivity);
@@ -47,6 +48,8 @@ public interface ApplicationComponent {
 
   void inject(MainActivity mainActivity);
   void inject(StartActivity startActivity);
+
+  void inject(BaseFragment baseFragment);
 
   void inject(Controller controller);
   void inject(ServiceController serviceController);

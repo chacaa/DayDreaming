@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
-import com.xmartlabs.dd.BaseProjectApplication;
+import com.xmartlabs.dd.DDApplication;
 
 import javax.inject.Singleton;
 
@@ -13,9 +13,9 @@ import dagger.Provides;
 
 @Module
 public class AndroidModule {
-  private final BaseProjectApplication application;
+  private final DDApplication application;
 
-  public AndroidModule(BaseProjectApplication application) {
+  public AndroidModule(DDApplication application) {
     this.application = application;
   }
 

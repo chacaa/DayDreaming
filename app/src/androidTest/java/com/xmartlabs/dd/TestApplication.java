@@ -4,7 +4,7 @@ import com.xmartlabs.dd.module.AndroidModule;
 
 import bullet.ObjectGraph;
 
-public class TestApplication extends BaseProjectApplication {
+public class TestApplication extends DDApplication {
   @Override
   protected ApplicationComponent createComponent() {
     return DaggerTestComponent.builder()

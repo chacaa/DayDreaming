@@ -4,7 +4,7 @@ import android.content.res.TypedArray;
 import android.support.annotation.DimenRes;
 import android.support.annotation.Dimension;
 
-import com.xmartlabs.dd.BaseProjectApplication;
+import com.xmartlabs.dd.DDApplication;
 import com.xmartlabs.dd.R;
 
 @SuppressWarnings("unused")
@@ -91,7 +91,7 @@ public class MetricsHelper {
     return (float) Math.sqrt(dx * dx + dy * dy);
   }
 
-  private static BaseProjectApplication getContext() {
-    return BaseProjectApplication.getContext();
+  private static DDApplication getContext() {
+    return DDApplication.getContext();
   }
 }

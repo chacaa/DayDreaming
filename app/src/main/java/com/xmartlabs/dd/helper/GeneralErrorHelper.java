@@ -6,7 +6,7 @@ import android.content.SharedPreferences;
 import com.annimon.stream.Objects;
 import com.annimon.stream.Stream;
 import com.crashlytics.android.Crashlytics;
-import com.xmartlabs.dd.BaseProjectApplication;
+import com.xmartlabs.dd.DDApplication;
 import com.xmartlabs.dd.BuildConfig;
 import com.xmartlabs.dd.common.exeption.EntityNotFoundException;
 import com.xmartlabs.dd.common.exeption.ServiceExceptionWithMessage;
@@ -64,7 +64,7 @@ public final class GeneralErrorHelper {
   };
 
   public GeneralErrorHelper() {
-    BaseProjectApplication.getContext().inject(this);
+    DDApplication.getContext().inject(this);
   }
 
   private void logCrashlyticsError(ServiceExceptionWithMessage exceptionWithMessage) {

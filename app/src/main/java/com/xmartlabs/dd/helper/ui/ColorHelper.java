@@ -3,7 +3,7 @@ package com.xmartlabs.dd.helper.ui;
 import android.support.annotation.ColorRes;
 import android.support.annotation.NonNull;
 
-import com.xmartlabs.dd.BaseProjectApplication;
+import com.xmartlabs.dd.DDApplication;
 
 @SuppressWarnings("unused")
 public class ColorHelper {
@@ -16,7 +16,7 @@ public class ColorHelper {
   @NonNull
   public static String getResourceColorHexString(@ColorRes int colorResId) {
     //noinspection deprecation
-    int color = BaseProjectApplication.getContext().getResources().getColor(colorResId);
+    int color = DDApplication.getContext().getResources().getColor(colorResId);
     return String.format("#%06X", (0xFFFFFF & color));
   }
 }
