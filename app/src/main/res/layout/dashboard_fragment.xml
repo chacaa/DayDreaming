@@ -1,12 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:diagonal="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/black"
-    >
+    android:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/Toolbar"
+        android:background="@color/black"
+        />
 
     <com.github.florent37.diagonallayout.DiagonalLayout
         android:id="@+id/home_custom"
@@ -18,26 +24,35 @@
         diagonal:diagonal_position="top"
         >
 
-        <LinearLayout
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scaleType="centerCrop"
-            android:background="@drawable/home_custom"
+            android:background="@color/black"
             >
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/home_custom"
-                android:textSize="30sp"
-                android:textColor="@color/white"
-                android:textStyle="bold"
-                android:layout_gravity="bottom"
-                android:layout_marginBottom="15dp"
-                android:layout_marginStart="18dp"
+            <ImageView
+                android:id="@+id/custom_image"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:alpha="0.4"
+                android:background="@drawable/home_custom"
+                android:scaleType="centerCrop"
                 />
 
-        </LinearLayout>
+            <TextView
+                android:id="@+id/custom_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_marginBottom="40dp"
+                android:layout_marginStart="18dp"
+                android:text="@string/home_custom"
+                android:textColor="@color/warm_grey"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                />
+
+        </FrameLayout>
 
     </com.github.florent37.diagonallayout.DiagonalLayout>
 
@@ -45,33 +60,42 @@
         android:id="@+id/home_trending"
         android:layout_width="match_parent"
         android:layout_height="250dp"
+        android:layout_marginTop="-80dp"
         android:elevation="10dp"
         diagonal:diagonal_angle="7"
         diagonal:diagonal_direction="right"
         diagonal:diagonal_position="top"
-        android:layout_marginTop="-60dp"
         >
 
-        <LinearLayout
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scaleType="centerCrop"
-            android:background="@drawable/home_trending"
+            android:background="@color/black"
             >
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/home_trending"
-                android:textSize="30sp"
-                android:textColor="@color/white"
-                android:textStyle="bold"
-                android:layout_gravity="bottom"
-                android:layout_marginBottom="15dp"
-                android:layout_marginStart="18dp"
+            <ImageView
+                android:id="@+id/trending_image"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:alpha="0.4"
+                android:background="@drawable/home_trending"
+                android:scaleType="centerCrop"
                 />
 
-        </LinearLayout>
+            <TextView
+                android:id="@+id/trending_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_marginBottom="40dp"
+                android:layout_marginStart="18dp"
+                android:text="@string/home_trending"
+                android:textColor="@color/warm_grey"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                />
+
+        </FrameLayout>
 
     </com.github.florent37.diagonallayout.DiagonalLayout>
 
@@ -79,33 +103,59 @@
         android:id="@+id/home_random"
         android:layout_width="match_parent"
         android:layout_height="250dp"
+        android:layout_marginTop="-80dp"
+        android:elevation="10dp"
+        diagonal:diagonal_angle="7"
+        diagonal:diagonal_direction="right"
+        diagonal:diagonal_position="top">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/black"
+            >
+
+            <ImageView
+                android:id="@+id/random_image"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:alpha="0.4"
+                android:background="@drawable/home_random"
+                android:scaleType="centerCrop"
+                />
+
+            <TextView
+                android:id="@+id/random_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_marginBottom="40dp"
+                android:layout_marginStart="18dp"
+                android:text="@string/home_random"
+                android:textColor="@color/warm_grey"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                />
+
+        </FrameLayout>
+
+    </com.github.florent37.diagonallayout.DiagonalLayout>
+
+    <com.github.florent37.diagonallayout.DiagonalLayout
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:layout_marginTop="-80dp"
         android:elevation="10dp"
         diagonal:diagonal_angle="7"
         diagonal:diagonal_direction="right"
         diagonal:diagonal_position="top"
-        android:layout_marginTop="-60dp"
         >
 
-        <LinearLayout
+        <View
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scaleType="centerCrop"
-            android:background="@drawable/home_random"
-            >
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/home_random"
-                android:textSize="30sp"
-                android:textColor="@color/white"
-                android:textStyle="bold"
-                android:layout_gravity="bottom"
-                android:layout_marginBottom="15dp"
-                android:layout_marginStart="18dp"
-                />
-
-        </LinearLayout>
+            android:background="@color/black"
+            />
 
     </com.github.florent37.diagonallayout.DiagonalLayout>
 
