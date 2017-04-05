@@ -2,15 +2,14 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/menu"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black"
     android:orientation="vertical"
     >
 
-    <com.xmartlabs.dd.ui.DiagonalLayoutView
-        android:id="@+id/custom"
+    <com.xmartlabs.DayDreaming.ui.DiagonalLayoutView
+        android:id="@+id/custom_dashboard_option_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:src="@drawable/home_custom"
@@ -19,16 +18,16 @@
         app:diagonal_angle="7"
         />
 
-    <com.xmartlabs.dd.ui.DiagonalLayoutView
-        android:id="@+id/first_black"
+    <com.xmartlabs.DayDreaming.ui.DiagonalLayoutView
+        android:id="@+id/first_black_line_separator_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:src="@color/black"
         app:diagonal_angle="7"
         />
 
-    <com.xmartlabs.dd.ui.DiagonalLayoutView
-        android:id="@+id/trending"
+    <com.xmartlabs.DayDreaming.ui.DiagonalLayoutView
+        android:id="@+id/trending_dashboard_option_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:src="@drawable/home_trending"
@@ -37,16 +36,16 @@
         app:diagonal_angle="7"
         />
 
-    <com.xmartlabs.dd.ui.DiagonalLayoutView
-        android:id="@+id/second_black"
+    <com.xmartlabs.DayDreaming.ui.DiagonalLayoutView
+        android:id="@+id/second_black_line_separator_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:src="@color/black"
         app:diagonal_angle="7"
         />
 
-    <com.xmartlabs.dd.ui.DiagonalLayoutView
-        android:id="@+id/random"
+    <com.xmartlabs.DayDreaming.ui.DiagonalLayoutView
+        android:id="@+id/random_dashboard_option_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:src="@drawable/home_random"
@@ -55,8 +54,8 @@
         app:diagonal_angle="7"
         />
 
-    <com.xmartlabs.dd.ui.DiagonalLayoutView
-        android:id="@+id/bottom_black"
+    <com.xmartlabs.DayDreaming.ui.DiagonalLayoutView
+        android:id="@+id/bottom_black_diagonal_separator_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:src="@color/black"
