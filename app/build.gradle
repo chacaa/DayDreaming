@@ -54,7 +54,7 @@ android {
     compileSdkVersion 25
     buildToolsVersion '25.0.2'
     defaultConfig {
-        applicationId 'com.xmartlabs.template'
+        applicationId 'com.xmartlabs.DayDreaming'
         minSdkVersion 17
         targetSdkVersion 25
         testInstrumentationRunner "${applicationId}.TestRunner"
