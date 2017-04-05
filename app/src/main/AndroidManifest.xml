@@ -42,5 +42,10 @@
             android:screenOrientation="portrait"
             />
 
+        <activity
+            android:name="com.xmartlabs.daydreaming.ui.OnboardingActivity"
+            android:screenOrientation="portrait"
+            />
+
     </application>
 </manifest>

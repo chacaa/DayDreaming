@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    >
+
+    <VideoView
+        android:id="@+id/background_video_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_gravity="center"
+        />
+
+    <ImageView
+        android:layout_width="219dp"
+        android:layout_height="33dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:src="@drawable/white"
+        />
+
+    <TextView
+        android:id="@+id/button_start_dreaming"
+        android:layout_width="match_parent"
+        android:layout_height="53dp"
+        android:background="@color/black"
+        android:gravity="center"
+        android:layout_alignParentBottom="true"
+        android:text="@string/start_dreaming"
+        android:textAllCaps="true"
+        android:textColor="@color/warm_grey"
+        android:textSize="18sp"
+        />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/double_square_shape"
+        android:layout_above="@id/button_start_dreaming"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_marginBottom="40dp"
+        android:layout_marginEnd="19dp"
+        android:layout_marginStart="19dp"
+        android:layout_marginTop="40dp"
+        />
+
+    <RelativeLayout
+        android:id="@+id/splash_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/black"
+        >
+
+        <ImageView
+            android:layout_width="219dp"
+            android:layout_height="33dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/white"
+            />
+
+    </RelativeLayout>
+
+</RelativeLayout>
