@@ -8,7 +8,7 @@
     <color name="divider">@color/grayLight</color>
     <color name="background">@color/white</color>
 
-    <color name="black">#000000</color>
+    <color name="black">#212121</color>
     <color name="blue">#2196f3</color>
     <color name="blueDark">#1976d2</color>
     <!--color name="blueLight">#bbdef8</color-->
