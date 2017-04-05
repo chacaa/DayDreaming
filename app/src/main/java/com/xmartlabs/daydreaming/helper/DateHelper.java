@@ -36,11 +36,11 @@ import java.util.TimeZone;
  */
 @SuppressWarnings("unused")
 public class DateHelper {
-  private static final String DATE_COMPLETE = "yyyy-MMM-DayDreaming HH:mm:ss";
+  private static final String DATE_COMPLETE = "yyyy-MMM-dd HH:mm:ss";
   @SuppressWarnings("SpellCheckingInspection")
   private static final String DATE_SHORT = "EEEE, MMM d";
 
-  public static final String DATE_ISO_8601 = "yyyy-MM-DayDreaming'T'HH:mm:ss.SSS'Z'";
+  public static final String DATE_ISO_8601 = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
 
   private static final DateTimeFormatter DATE_COMPLETE_FORMAT = DateTimeFormatter.ofPattern(DATE_COMPLETE, Locale.US);
   public static final DateTimeFormatter DATE_ISO_8601_FORMAT = DateTimeFormatter.ofPattern(DATE_ISO_8601, Locale.US);

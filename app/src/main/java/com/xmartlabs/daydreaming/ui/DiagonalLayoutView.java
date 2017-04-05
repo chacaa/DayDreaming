@@ -28,9 +28,7 @@ public class DiagonalLayoutView extends DiagonalLayout {
     super(context, attrs);
     View view = getView(context);
     ButterKnife.bind(this, view);
-    TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.DiagonalLayoutView);
-    setupViewProperties(typedArray);
-    typedArray.recycle();
+    setupViewProperties(attrs);
   }
 
   private View getView(Context context) {
@@ -38,10 +36,12 @@ public class DiagonalLayoutView extends DiagonalLayout {
     return inflater.inflate(R.layout.diagonal_layout_view, this, true);
   }
 
-  private void setupViewProperties(TypedArray typedArray) {
+  private void setupViewProperties(AttributeSet attrs) {
+    TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.DiagonalLayoutView);
     imageView.setImageDrawable(typedArray.getDrawable(R.styleable.DiagonalLayoutView_android_src));
     textView.setText(typedArray.getText(R.styleable.DiagonalLayoutView_android_text));
     textView.setTextColor(typedArray.getColor(R.styleable.DiagonalLayoutView_android_textColor, 0));
+    typedArray.recycle();
   }
 
   public void setTextColor(@ColorRes int color) {
