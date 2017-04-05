@@ -3,4 +3,10 @@
     <declare-styleable name="Commons">
         <attr format="reference" name="emptyView" />
     </declare-styleable>
+
+    <declare-styleable name="DiagonalLayoutView">
+        <attr name="android:src" />
+        <attr name="android:text" />
+        <attr name="android:textColor" />
+    </declare-styleable>
 </resources>
