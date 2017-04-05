@@ -18,6 +18,7 @@
         />
 
     <ImageView
+        android:id="@+id/daydreaming_image_view"
         android:layout_width="219dp"
         android:layout_height="33dp"
         android:layout_centerHorizontal="true"
@@ -26,7 +27,7 @@
         />
 
     <TextView
-        android:id="@+id/button_start_dreaming"
+        android:id="@+id/start_dreaming_view"
         android:layout_width="match_parent"
         android:layout_height="53dp"
         android:background="@color/black"
@@ -39,10 +40,11 @@
         />
 
     <View
+        android:id="@+id/square_shape_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/double_square_shape"
-        android:layout_above="@id/button_start_dreaming"
+        android:layout_above="@id/start_dreaming_view"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:layout_marginBottom="40dp"
