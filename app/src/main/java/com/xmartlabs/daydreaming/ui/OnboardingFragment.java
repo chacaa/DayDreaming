@@ -14,6 +14,8 @@ import android.widget.VideoView;
 import com.hannesdorfmann.fragmentargs.annotation.FragmentWithArgs;
 import com.xmartlabs.daydreaming.R;
 
+import java.util.Locale;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 
@@ -57,7 +59,7 @@ public class OnboardingFragment extends BaseFragment {
   }
 
   private void setupBackgroundVideo() {
-    String uriString = String.format("android.resource://%s/%d", getActivity().getPackageName(), R.raw.daydreamingvideo);
+    String uriString = String.format(Locale.getDefault(), "android.resource://%s/%d", getActivity().getPackageName(), R.raw.daydreamingvideo);
     Uri uri = Uri.parse(uriString);
     backgroundVideoView.setVideoURI(uri);
     backgroundVideoView.start();
