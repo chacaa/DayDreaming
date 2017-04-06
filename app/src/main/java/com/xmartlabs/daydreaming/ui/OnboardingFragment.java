@@ -59,7 +59,8 @@ public class OnboardingFragment extends BaseFragment {
   }
 
   private void setupBackgroundVideo() {
-    String uriString = String.format(Locale.getDefault(), "android.resource://%s/%d", getActivity().getPackageName(), R.raw.daydreamingvideo);
+    String uriString = String.format(Locale.getDefault(),
+        "android.resource://%s/%d", getActivity().getPackageName(), R.raw.daydreamingvideo);
     Uri uri = Uri.parse(uriString);
     backgroundVideoView.setVideoURI(uri);
     backgroundVideoView.start();
