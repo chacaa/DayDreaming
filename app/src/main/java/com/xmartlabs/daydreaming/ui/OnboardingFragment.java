@@ -24,6 +24,9 @@ import butterknife.OnClick;
  */
 @FragmentWithArgs
 public class OnboardingFragment extends BaseFragment {
+  public static final float INVISIBLE = 0.0001f;
+  public static final float VISIBLE = 1.0f;
+
   @BindView(R.id.background_video_view)
   VideoView backgroundVideoView;
   @BindView(R.id.daydreaming_image_view)
@@ -68,15 +71,16 @@ public class OnboardingFragment extends BaseFragment {
   }
 
   private void setupAnimation() {
-    animateView(splashView, 2000, 1000, 0.0001f);
-    animateView(startDreamingView, 2000, 4000, 1.0f);
-    animateView(daydreamingImageView, 1000, 2000, 0.0001f);
-    animateView(squareShapeView, 2000, 3000, 1.0f);
+    animateView(splashView, 2000, 1000, INVISIBLE);
+    animateView(startDreamingView, 2000, 4000, VISIBLE);
+    animateView(daydreamingImageView, 1000, 2000, INVISIBLE);
+    animateView(squareShapeView, 2000, 3000, VISIBLE);
   }
 
   private void initializeAlphaValues() {
-    startDreamingView.setAlpha(0.0001f);
-    squareShapeView.setAlpha(0.0001f);
+
+    startDreamingView.setAlpha(INVISIBLE);
+    squareShapeView.setAlpha(INVISIBLE);
   }
 
   private void animateView(View view, long durationInMs, long delayInMs, float alpha) {
