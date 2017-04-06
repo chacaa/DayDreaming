@@ -1,12 +1,22 @@
 package com.xmartlabs.daydreaming.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Dimension;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
+import com.annimon.stream.Optional;
 import com.hannesdorfmann.fragmentargs.annotation.FragmentWithArgs;
 import com.xmartlabs.daydreaming.R;
 import com.xmartlabs.daydreaming.helper.ui.MetricsHelper;
@@ -22,17 +32,25 @@ public class DashboardFragment extends BaseFragment {
   @Dimension(unit = Dimension.PX)
   private static final int BLACK_LINE_HEIGHT = MetricsHelper.dpToPxInt(10);
   private static final int QUANTITY_OF_OPTIONS = 3; //TODO change it for a list
+  @Dimension(unit = Dimension.PX)
+  private static final int TOOLBAR_HEIGHT = MetricsHelper.dpToPxInt(56);
 
   @BindView(R.id.bottom_black_diagonal_separator_view)
   DiagonalLayoutView bottomBlackView;
   @BindView(R.id.custom_dashboard_option_view)
   DiagonalLayoutView customOptionView;
+  @BindView(R.id.drawer_layout)
+  DrawerLayout drawerView;
   @BindView(R.id.first_black_line_separator_view)
   DiagonalLayoutView firstBlackLineView;
+  @BindView(R.id.nav_view)
+  NavigationView navigationView;
   @BindView(R.id.random_dashboard_option_view)
   DiagonalLayoutView randomOptionView;
   @BindView(R.id.second_black_line_separator_view)
   DiagonalLayoutView secondBlackLineView;
+  @BindView(R.id.toolbar)
+  Toolbar toolbarView;
   @BindView(R.id.trending_dashboard_option_view)
   DiagonalLayoutView trendingOptionView;
 
@@ -46,6 +64,20 @@ public class DashboardFragment extends BaseFragment {
   public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
     setUpView(view);
+    setupToolbar();
+  }
+
+  @Override
+  public boolean onOptionsItemSelected(MenuItem item) {
+    switch (item.getItemId()) {
+      case android.R.id.home:
+        drawerView.openDrawer(GravityCompat.START);
+        Toast.makeText(getContext(), "hola", Toast.LENGTH_LONG).show();
+        return true;
+      default:
+        Toast.makeText(getContext(), item.getItemId(), Toast.LENGTH_LONG).show();
+        return true;
+    }
   }
 
   @OnClick(R.id.custom_dashboard_option_view)
@@ -69,7 +101,7 @@ public class DashboardFragment extends BaseFragment {
   private void setUpView(View view) {
     view.post(() -> {
       @Dimension(unit = Dimension.PX)
-      int height = view.getMeasuredHeight() - (2 * BLACK_LINE_HEIGHT);
+      int height = view.getMeasuredHeight() - (2 * BLACK_LINE_HEIGHT) - TOOLBAR_HEIGHT;
       @Dimension(unit = Dimension.PX)
       int margin = (int) (view.getMeasuredWidth() * Math.tan(Math.toRadians(7)));
       @Dimension(unit = Dimension.PX)
@@ -89,6 +121,57 @@ public class DashboardFragment extends BaseFragment {
     layoutParams.setMargins(0, -marginTopInPx, 0, 0);
     layoutParams.height = optionHeightInPx;
     diagonalLayout.setLayoutParams(layoutParams);
+  }
+
+  private void setupToolbar() {
+    AppCompatActivity activity = (AppCompatActivity) getActivity();
+    activity.setSupportActionBar(toolbarView);
+    Optional.ofNullable(activity.getSupportActionBar())
+        .ifPresent(actionBar -> {
+          actionBar.setDisplayHomeAsUpEnabled(true);
+          actionBar.setHomeButtonEnabled(true);
+          actionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
+          actionBar.setDisplayShowTitleEnabled(false);
+        });
+
+    toolbarView.setNavigationOnClickListener(v -> {
+      drawerView.openDrawer(Gravity.START);
+    });
+
+    if (navigationView != null) {
+      setupDrawerContent(navigationView);
+    }
+  }
+
+  private void setupDrawerContent(NavigationView navigationView) {
+    NavigationView.OnNavigationItemSelectedListener onNavigationItemSelectedListener = menuItem -> {
+      switch (menuItem.getItemId()) {
+        case R.id.nav_review_tutorial:
+          Intent intent = Henson.with(getContext())
+              .gotoOnboardingActivity()
+              .build()
+              .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+          getContext().startActivity(intent);
+          return closeDrawer(menuItem);
+        case R.id.nav_rate:
+          //TODO go to rate app
+          return closeDrawer(menuItem);
+        case R.id.nav_about:
+          //TODO go to about
+          return closeDrawer(menuItem);
+        default:
+          //TODO go to login
+          return closeDrawer(menuItem);
+      }
+    };
+    navigationView.setNavigationItemSelectedListener(
+        onNavigationItemSelectedListener);
+  }
+
+  private boolean closeDrawer(MenuItem menuItem) {
+    menuItem.setChecked(false);
+    drawerView.closeDrawers();
+    return true;
   }
 
   //TODO change the animation. It will be used later.

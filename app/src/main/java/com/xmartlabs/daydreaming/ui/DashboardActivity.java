@@ -8,7 +8,7 @@ import com.f2prateek.dart.HensonNavigable;
  * Created by scasas on 3/31/17.
  */
 @HensonNavigable
-public class DashboardActivity extends SingleFragmentWithToolbarActivity {
+public class DashboardActivity extends SingleFragmentActivity {
   @NonNull
   @Override
   protected BaseFragment createFragment() {

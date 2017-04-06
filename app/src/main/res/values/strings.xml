@@ -14,4 +14,8 @@
     <string name="home_trending">Trending</string>
     <string name="home_random">Random</string>
     <string name="start_dreaming">Start Daydreaming</string>
+    <string name="review">REVIEW TUTORIAL</string>
+    <string name="rate">RATE APP</string>
+    <string name="about">ABOUT</string>
+    <string name="login">LOG IN</string>
 </resources>
