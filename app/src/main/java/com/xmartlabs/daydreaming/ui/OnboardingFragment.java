@@ -78,11 +78,11 @@ public class OnboardingFragment extends BaseFragment {
     squareShapeView.setAlpha(0.0001f);
   }
 
-  private void animateView(View view, long duration, long delay, float alpha) {
+  private void animateView(View view, long durationInMs, long delayInMs, float alpha) {
     view.animate()
-        .setDuration(duration)
+        .setDuration(durationInMs)
         .alpha(alpha)
-        .setStartDelay(delay)
+        .setStartDelay(delayInMs)
         .start();
   }
 }
