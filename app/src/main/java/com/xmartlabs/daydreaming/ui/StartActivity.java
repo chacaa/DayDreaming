@@ -21,7 +21,7 @@ public class StartActivity extends BaseActivity {
     sessionController.getSession()
         .ifPresent(authController::setLoginInfo);
     Intent intent = Henson.with(getContext())
-        .gotoDashboardActivity()
+        .gotoOnboardingActivity()
         .build()
         .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
     getContext().startActivity(intent);
