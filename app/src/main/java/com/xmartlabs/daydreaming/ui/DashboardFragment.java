@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Dimension;
 import android.support.annotation.LayoutRes;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
@@ -15,6 +16,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import com.annimon.stream.Optional;
+import com.annimon.stream.function.Consumer;
 import com.hannesdorfmann.fragmentargs.annotation.FragmentWithArgs;
 import com.xmartlabs.daydreaming.R;
 import com.xmartlabs.daydreaming.helper.ui.MetricsHelper;
@@ -101,7 +103,7 @@ public class DashboardFragment extends BaseFragment {
     });
   }
 
-  private void setUpDiagonalLayoutView(DiagonalLayoutView diagonalLayout, int optionHeightInPx, int marginTopInPx) {
+  private void setUpDiagonalLayoutView(@NonNull DiagonalLayoutView diagonalLayout, int optionHeightInPx, int marginTopInPx) {
     LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) diagonalLayout.getLayoutParams();
     layoutParams.setMargins(0, -marginTopInPx, 0, 0);
     layoutParams.height = optionHeightInPx;
@@ -121,12 +123,11 @@ public class DashboardFragment extends BaseFragment {
 
     toolbarView.setNavigationOnClickListener(v -> drawerView.openDrawer(Gravity.START));
 
-    if (navigationView != null) {
-      setupDrawerContent(navigationView);
-    }
+    Optional.ofNullable(navigationView)
+        .ifPresent(this::setupDrawerContent);
   }
 
-  private void setupDrawerContent(NavigationView navigationView) {
+  private void setupDrawerContent(@NonNull NavigationView navigationView) {
     NavigationView.OnNavigationItemSelectedListener onNavigationItemSelectedListener = menuItem -> {
       switch (menuItem.getItemId()) {
         case R.id.nav_review_tutorial:
@@ -153,7 +154,7 @@ public class DashboardFragment extends BaseFragment {
         onNavigationItemSelectedListener);
   }
 
-  private boolean closeDrawer(MenuItem menuItem) {
+  private boolean closeDrawer(@NonNull MenuItem menuItem) {
     menuItem.setChecked(false);
     drawerView.closeDrawers();
     return true;
