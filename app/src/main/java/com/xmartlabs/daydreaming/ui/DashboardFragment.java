@@ -135,12 +135,16 @@ public class DashboardFragment extends BaseFragment {
               .build()
               .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
           getContext().startActivity(intent);
+          break;
         case R.id.nav_rate:
           //TODO go to rate app
+          break;
         case R.id.nav_about:
           //TODO go to about
+          break;
         case R.id.nav_login:
           //TODO go to login
+          break;
         default:
       }
       return closeDrawer(menuItem);
