@@ -11,11 +11,8 @@
     >
 
     <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/black"
         android:orientation="vertical"
         >
 
@@ -23,62 +20,73 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/black"
             style="@style/Toolbar"
             />
 
-        <com.xmartlabs.daydreaming.ui.DiagonalLayoutView
-            android:id="@+id/custom_dashboard_option_view"
+        <LinearLayout
+            android:id="@+id/dashboard_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@drawable/home_custom"
-            android:text="@string/home_custom"
-            android:textColor="@color/warm_grey"
-            app:diagonal_angle="7"
-            />
+            android:background="@color/black"
+            android:orientation="vertical"
+            >
 
-        <com.xmartlabs.daydreaming.ui.DiagonalLayoutView
-            android:id="@+id/first_black_line_separator_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@color/black"
-            app:diagonal_angle="7"
-            />
+            <com.xmartlabs.daydreaming.ui.DiagonalLayoutView
+                android:id="@+id/custom_dashboard_option_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/home_custom"
+                android:text="@string/home_custom"
+                android:textColor="@color/warm_grey"
+                app:diagonal_angle="7"
+                />
 
-        <com.xmartlabs.daydreaming.ui.DiagonalLayoutView
-            android:id="@+id/trending_dashboard_option_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@drawable/home_trending"
-            android:text="@string/home_trending"
-            android:textColor="@color/warm_grey"
-            app:diagonal_angle="7"
-            />
+            <com.xmartlabs.daydreaming.ui.DiagonalLayoutView
+                android:id="@+id/first_black_line_separator_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@color/black"
+                app:diagonal_angle="7"
+                />
 
-        <com.xmartlabs.daydreaming.ui.DiagonalLayoutView
-            android:id="@+id/second_black_line_separator_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@color/black"
-            app:diagonal_angle="7"
-            />
+            <com.xmartlabs.daydreaming.ui.DiagonalLayoutView
+                android:id="@+id/trending_dashboard_option_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/home_trending"
+                android:text="@string/home_trending"
+                android:textColor="@color/warm_grey"
+                app:diagonal_angle="7"
+                />
 
-        <com.xmartlabs.daydreaming.ui.DiagonalLayoutView
-            android:id="@+id/random_dashboard_option_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@drawable/home_random"
-            android:text="@string/home_random"
-            android:textColor="@color/warm_grey"
-            app:diagonal_angle="7"
-            />
+            <com.xmartlabs.daydreaming.ui.DiagonalLayoutView
+                android:id="@+id/second_black_line_separator_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@color/black"
+                app:diagonal_angle="7"
+                />
 
-        <com.xmartlabs.daydreaming.ui.DiagonalLayoutView
-            android:id="@+id/bottom_black_diagonal_separator_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@color/black"
-            app:diagonal_angle="7"
-            />
+            <com.xmartlabs.daydreaming.ui.DiagonalLayoutView
+                android:id="@+id/random_dashboard_option_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/home_random"
+                android:text="@string/home_random"
+                android:textColor="@color/warm_grey"
+                app:diagonal_angle="7"
+                />
+
+            <com.xmartlabs.daydreaming.ui.DiagonalLayoutView
+                android:id="@+id/bottom_black_diagonal_separator_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@color/black"
+                app:diagonal_angle="7"
+                />
+
+        </LinearLayout>
 
     </LinearLayout>
 

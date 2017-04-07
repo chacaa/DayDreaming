@@ -6,7 +6,6 @@ import android.support.annotation.Dimension;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
-import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -14,7 +13,6 @@ import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.annimon.stream.Optional;
 import com.hannesdorfmann.fragmentargs.annotation.FragmentWithArgs;
@@ -32,13 +30,13 @@ public class DashboardFragment extends BaseFragment {
   @Dimension(unit = Dimension.PX)
   private static final int BLACK_LINE_HEIGHT = MetricsHelper.dpToPxInt(10);
   private static final int QUANTITY_OF_OPTIONS = 3; //TODO change it for a list
-  @Dimension(unit = Dimension.PX)
-  private static final int TOOLBAR_HEIGHT = MetricsHelper.dpToPxInt(56);
 
   @BindView(R.id.bottom_black_diagonal_separator_view)
   DiagonalLayoutView bottomBlackView;
   @BindView(R.id.custom_dashboard_option_view)
   DiagonalLayoutView customOptionView;
+  @BindView(R.id.dashboard_view)
+  LinearLayout dashboardView;
   @BindView(R.id.drawer_layout)
   DrawerLayout drawerView;
   @BindView(R.id.first_black_line_separator_view)
@@ -67,19 +65,6 @@ public class DashboardFragment extends BaseFragment {
     setupToolbar();
   }
 
-  @Override
-  public boolean onOptionsItemSelected(MenuItem item) {
-    switch (item.getItemId()) {
-      case android.R.id.home:
-        drawerView.openDrawer(GravityCompat.START);
-        Toast.makeText(getContext(), "hola", Toast.LENGTH_LONG).show();
-        return true;
-      default:
-        Toast.makeText(getContext(), item.getItemId(), Toast.LENGTH_LONG).show();
-        return true;
-    }
-  }
-
   @OnClick(R.id.custom_dashboard_option_view)
   void onClickedCustom() {
     customOptionView.setTextColor(R.color.white);
@@ -101,9 +86,9 @@ public class DashboardFragment extends BaseFragment {
   private void setUpView(View view) {
     view.post(() -> {
       @Dimension(unit = Dimension.PX)
-      int height = view.getMeasuredHeight() - (2 * BLACK_LINE_HEIGHT) - TOOLBAR_HEIGHT;
+      int height = dashboardView.getMeasuredHeight() - (2 * BLACK_LINE_HEIGHT);
       @Dimension(unit = Dimension.PX)
-      int margin = (int) (view.getMeasuredWidth() * Math.tan(Math.toRadians(7)));
+      int margin = (int) (dashboardView.getMeasuredWidth() * Math.tan(Math.toRadians(7)));
       @Dimension(unit = Dimension.PX)
       int optionHeight = ((height + margin * 2) / QUANTITY_OF_OPTIONS);
 
@@ -134,9 +119,7 @@ public class DashboardFragment extends BaseFragment {
           actionBar.setDisplayShowTitleEnabled(false);
         });
 
-    toolbarView.setNavigationOnClickListener(v -> {
-      drawerView.openDrawer(Gravity.START);
-    });
+    toolbarView.setNavigationOnClickListener(v -> drawerView.openDrawer(Gravity.START));
 
     if (navigationView != null) {
       setupDrawerContent(navigationView);
@@ -159,9 +142,11 @@ public class DashboardFragment extends BaseFragment {
         case R.id.nav_about:
           //TODO go to about
           return closeDrawer(menuItem);
-        default:
+        case R.id.nav_login:
           //TODO go to login
           return closeDrawer(menuItem);
+        default:
+          return false;
       }
     };
     navigationView.setNavigationItemSelectedListener(
