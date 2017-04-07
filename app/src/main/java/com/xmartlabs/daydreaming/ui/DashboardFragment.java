@@ -1,12 +1,22 @@
 package com.xmartlabs.daydreaming.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Dimension;
 import android.support.annotation.LayoutRes;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.NavigationView;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import com.annimon.stream.Optional;
+import com.annimon.stream.function.Consumer;
 import com.hannesdorfmann.fragmentargs.annotation.FragmentWithArgs;
 import com.xmartlabs.daydreaming.R;
 import com.xmartlabs.daydreaming.helper.ui.MetricsHelper;
@@ -27,12 +37,20 @@ public class DashboardFragment extends BaseFragment {
   DiagonalLayoutView bottomBlackView;
   @BindView(R.id.custom_dashboard_option_view)
   DiagonalLayoutView customOptionView;
+  @BindView(R.id.dashboard_view)
+  LinearLayout dashboardView;
+  @BindView(R.id.drawer_layout)
+  DrawerLayout drawerView;
   @BindView(R.id.first_black_line_separator_view)
   DiagonalLayoutView firstBlackLineView;
+  @BindView(R.id.nav_view)
+  NavigationView navigationView;
   @BindView(R.id.random_dashboard_option_view)
   DiagonalLayoutView randomOptionView;
   @BindView(R.id.second_black_line_separator_view)
   DiagonalLayoutView secondBlackLineView;
+  @BindView(R.id.toolbar)
+  Toolbar toolbarView;
   @BindView(R.id.trending_dashboard_option_view)
   DiagonalLayoutView trendingOptionView;
 
@@ -46,6 +64,7 @@ public class DashboardFragment extends BaseFragment {
   public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
     setUpView(view);
+    setupToolbar();
   }
 
   @OnClick(R.id.custom_dashboard_option_view)
@@ -69,9 +88,9 @@ public class DashboardFragment extends BaseFragment {
   private void setUpView(View view) {
     view.post(() -> {
       @Dimension(unit = Dimension.PX)
-      int height = view.getMeasuredHeight() - (2 * BLACK_LINE_HEIGHT);
+      int height = dashboardView.getMeasuredHeight() - (2 * BLACK_LINE_HEIGHT);
       @Dimension(unit = Dimension.PX)
-      int margin = (int) (view.getMeasuredWidth() * Math.tan(Math.toRadians(7)));
+      int margin = (int) (dashboardView.getMeasuredWidth() * Math.tan(Math.toRadians(7)));
       @Dimension(unit = Dimension.PX)
       int optionHeight = ((height + margin * 2) / QUANTITY_OF_OPTIONS);
 
@@ -84,11 +103,61 @@ public class DashboardFragment extends BaseFragment {
     });
   }
 
-  private void setUpDiagonalLayoutView(DiagonalLayoutView diagonalLayout, int optionHeightInPx, int marginTopInPx) {
+  private void setUpDiagonalLayoutView(@NonNull DiagonalLayoutView diagonalLayout, int optionHeightInPx, int marginTopInPx) {
     LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) diagonalLayout.getLayoutParams();
     layoutParams.setMargins(0, -marginTopInPx, 0, 0);
     layoutParams.height = optionHeightInPx;
     diagonalLayout.setLayoutParams(layoutParams);
+  }
+
+  private void setupToolbar() {
+    AppCompatActivity activity = (AppCompatActivity) getActivity();
+    activity.setSupportActionBar(toolbarView);
+    Optional.ofNullable(activity.getSupportActionBar())
+        .ifPresent(actionBar -> {
+          actionBar.setDisplayHomeAsUpEnabled(true);
+          actionBar.setHomeButtonEnabled(true);
+          actionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
+          actionBar.setDisplayShowTitleEnabled(false);
+        });
+
+    toolbarView.setNavigationOnClickListener(v -> drawerView.openDrawer(Gravity.START));
+
+    Optional.ofNullable(navigationView)
+        .ifPresent(this::setupDrawerContent);
+  }
+
+  private void setupDrawerContent(@NonNull NavigationView navigationView) {
+    NavigationView.OnNavigationItemSelectedListener onNavigationItemSelectedListener = menuItem -> {
+      switch (menuItem.getItemId()) {
+        case R.id.nav_review_tutorial:
+          Intent intent = Henson.with(getContext())
+              .gotoOnboardingActivity()
+              .build()
+              .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+          getContext().startActivity(intent);
+          break;
+        case R.id.nav_rate:
+          //TODO go to rate app
+          break;
+        case R.id.nav_about:
+          //TODO go to about
+          break;
+        case R.id.nav_login:
+          //TODO go to login
+          break;
+        default:
+      }
+      return closeDrawer(menuItem);
+    };
+    navigationView.setNavigationItemSelectedListener(
+        onNavigationItemSelectedListener);
+  }
+
+  private boolean closeDrawer(@NonNull MenuItem menuItem) {
+    menuItem.setChecked(false);
+    drawerView.closeDrawers();
+    return true;
   }
 
   //TODO change the animation. It will be used later.
