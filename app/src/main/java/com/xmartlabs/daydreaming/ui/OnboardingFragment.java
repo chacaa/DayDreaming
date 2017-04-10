@@ -55,7 +55,7 @@ public class OnboardingFragment extends BaseFragment {
   @OnClick(R.id.start_dreaming_view)
   void onClickedStartDayDreaming() {
     Intent intent = Henson.with(getContext())
-        .gotoCustomScreenActivity()
+        .gotoDashboardActivity()
         .build();
     getContext().startActivity(intent);
   }

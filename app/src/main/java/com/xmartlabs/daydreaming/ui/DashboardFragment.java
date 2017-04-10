@@ -143,7 +143,10 @@ public class DashboardFragment extends BaseFragment {
           //TODO go to rate app
           break;
         case R.id.nav_about:
-          //TODO go to about
+          intent = Henson.with(getContext())
+              .gotoAboutScreenActivity()
+              .build();
+          getContext().startActivity(intent);
           break;
         case R.id.nav_login:
           //TODO go to login
