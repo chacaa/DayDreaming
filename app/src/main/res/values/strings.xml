@@ -18,4 +18,14 @@
     <string name="rate">RATE APP</string>
     <string name="about">ABOUT</string>
     <string name="login">LOG IN</string>
+    <string name="music_mood">Music Mood</string>
+    <string name="chiil">Chill</string>
+    <string name="energetic">Energetic</string>
+    <string name="video_theme">Video Theme</string>
+    <string name="art">Art</string>
+    <string name="nature">Nature</string>
+    <string name="travel">Travel</string>
+    <string name="animals">Animals</string>
+    <string name="sports">Sports</string>
+    <string name="food">Food</string>
 </resources>

@@ -16,7 +16,6 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import com.annimon.stream.Optional;
-import com.annimon.stream.function.Consumer;
 import com.hannesdorfmann.fragmentargs.annotation.FragmentWithArgs;
 import com.xmartlabs.daydreaming.R;
 import com.xmartlabs.daydreaming.helper.ui.MetricsHelper;
@@ -70,13 +69,16 @@ public class DashboardFragment extends BaseFragment {
   @OnClick(R.id.custom_dashboard_option_view)
   void onClickedCustom() {
     customOptionView.setTextColor(R.color.white);
-    //TODO call to custom view
+    Intent intent = Henson.with(getContext())
+        .gotoCustomScreenActivity()
+        .build();
+    getContext().startActivity(intent);
   }
 
   @OnClick(R.id.trending_dashboard_option_view)
   void onClickedTrending() {
     trendingOptionView.setTextColor(R.color.white);
-    //TODO call custom view
+    //TODO call trending view
   }
 
   @OnClick(R.id.random_dashboard_option_view)
