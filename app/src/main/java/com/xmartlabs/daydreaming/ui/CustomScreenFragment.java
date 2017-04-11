@@ -61,7 +61,6 @@ public class CustomScreenFragment extends BaseFragment {
     animalsTextView.setTextColor(getColor(R.color.warm_grey));
     sportsTextView.setTextColor(getColor(R.color.warm_grey));
     foodTextView.setTextColor(getColor(R.color.warm_grey));
-    //TODO do something with that
   }
 
   @OnClick(R.id.nature_text_view)
@@ -72,7 +71,6 @@ public class CustomScreenFragment extends BaseFragment {
     animalsTextView.setTextColor(getColor(R.color.warm_grey));
     sportsTextView.setTextColor(getColor(R.color.warm_grey));
     foodTextView.setTextColor(getColor(R.color.warm_grey));
-    //TODO do something with that
   }
 
   @OnClick(R.id.travel_text_view)
@@ -83,7 +81,6 @@ public class CustomScreenFragment extends BaseFragment {
     animalsTextView.setTextColor(getColor(R.color.warm_grey));
     sportsTextView.setTextColor(getColor(R.color.warm_grey));
     foodTextView.setTextColor(getColor(R.color.warm_grey));
-    //TODO do something with that
   }
 
   @OnClick(R.id.animals_text_view)
@@ -94,7 +91,6 @@ public class CustomScreenFragment extends BaseFragment {
     animalsTextView.setTextColor(getColor(R.color.white));
     sportsTextView.setTextColor(getColor(R.color.warm_grey));
     foodTextView.setTextColor(getColor(R.color.warm_grey));
-    //TODO do something with that
   }
 
   @OnClick(R.id.sports_text_view)
@@ -105,7 +101,6 @@ public class CustomScreenFragment extends BaseFragment {
     animalsTextView.setTextColor(getColor(R.color.warm_grey));
     sportsTextView.setTextColor(getColor(R.color.white));
     foodTextView.setTextColor(getColor(R.color.warm_grey));
-    //TODO do something with that
   }
 
   @OnClick(R.id.food_text_view)
@@ -116,7 +111,6 @@ public class CustomScreenFragment extends BaseFragment {
     animalsTextView.setTextColor(getColor(R.color.warm_grey));
     sportsTextView.setTextColor(getColor(R.color.warm_grey));
     foodTextView.setTextColor(getColor(R.color.white));
-    //TODO do something with that
   }
 
   @OnClick(R.id.start_daydreaming_linearlayout)
@@ -134,10 +128,5 @@ public class CustomScreenFragment extends BaseFragment {
           actionBar.setDisplayHomeAsUpEnabled(true);
           actionBar.setHomeAsUpIndicator(R.drawable.ic_arrow_back_white_24dp);
         });
-  }
-
-  private int getColor(@ColorRes int color) {
-    //noinspection deprecation
-    return getResources().getColor(color);
   }
 }
