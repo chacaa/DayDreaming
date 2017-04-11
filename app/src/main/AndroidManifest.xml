@@ -47,5 +47,17 @@
             android:screenOrientation="portrait"
             />
 
+        <activity
+            android:name="com.xmartlabs.daydreaming.ui.CustomScreenActivity"
+            android:screenOrientation="portrait"
+            android:parentActivityName=".ui.DashboardActivity"
+            />
+
+        <activity
+            android:name="com.xmartlabs.daydreaming.ui.AboutScreenActivity"
+            android:screenOrientation="portrait"
+            android:parentActivityName=".ui.DashboardActivity"
+            />
+
     </application>
 </manifest>

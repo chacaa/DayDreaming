@@ -18,4 +18,23 @@
     <string name="rate">RATE APP</string>
     <string name="about">ABOUT</string>
     <string name="login">LOG IN</string>
+    <string name="music_mood">Music Mood</string>
+    <string name="chiil">Chill</string>
+    <string name="energetic">Energetic</string>
+    <string name="video_theme">Video Theme</string>
+    <string name="art">Art</string>
+    <string name="nature">Nature</string>
+    <string name="travel">Travel</string>
+    <string name="animals">Animals</string>
+    <string name="sports">Sports</string>
+    <string name="food">Food</string>
+    <string name="about_us">About us</string>
+    <string name="what_do_we_do">What do we do?</string>
+    <string name="contact_us">Contact us</string>
+    <string name="about_text">
+        Lorem ipsum dolor sit amet,consectetur adipiscing elit. Morbi sit amet
+        tortor eget leo dictum egestas.Donec eu est eget lacus lacinia elementum
+        eu in lectus. Vivamus velit est,fermentum lacinia sollicitudin faucibus,
+        ultrices eget eros.
+    </string>
 </resources>

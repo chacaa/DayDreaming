@@ -2,8 +2,8 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:bottom="15dp"
-        android:right="15dp"
+        android:right="10dp"
+        android:top="10dp"
         >
 
         <shape android:shape="rectangle">
@@ -18,8 +18,8 @@
     </item>
 
     <item
-        android:left="15dp"
-        android:top="15dp"
+        android:bottom="10dp"
+        android:left="10dp"
         >
 
         <shape android:shape="rectangle">
