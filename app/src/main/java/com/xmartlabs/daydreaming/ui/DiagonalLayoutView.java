@@ -4,9 +4,11 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.support.annotation.ColorRes;
 import android.util.AttributeSet;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.github.florent37.diagonallayout.DiagonalLayout;
@@ -16,9 +18,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * Created by scasas on 4/4/17.
+ * Created by chaca on 4/4/17.
  */
-public class DiagonalLayoutView extends DiagonalLayout {
+public class DiagonalLayoutView extends LinearLayout {
   @BindView(R.id.diagonal_image)
   ImageView imageView;
   @BindView(R.id.diagonal_text_view)
@@ -26,6 +28,10 @@ public class DiagonalLayoutView extends DiagonalLayout {
 
   public DiagonalLayoutView(Context context, AttributeSet attrs) {
     super(context, attrs);
+
+    setOrientation(VERTICAL);
+    setGravity(Gravity.CENTER);
+
     View view = getView(context);
     ButterKnife.bind(this, view);
     setupViewProperties(attrs);
