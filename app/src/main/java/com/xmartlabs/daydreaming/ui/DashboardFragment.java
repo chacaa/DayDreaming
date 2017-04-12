@@ -24,7 +24,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 /**
- * Created by scasas on 3/31/17.
+ * Created by chaca on 3/31/17.
  */
 @FragmentWithArgs
 public class DashboardFragment extends BaseFragment {
@@ -95,7 +95,6 @@ public class DashboardFragment extends BaseFragment {
       int margin = (int) (dashboardView.getMeasuredWidth() * Math.tan(Math.toRadians(7)));
       @Dimension(unit = Dimension.PX)
       int optionHeight = ((height + margin * 2) / QUANTITY_OF_OPTIONS);
-
       setUpDiagonalLayoutView(customOptionView, optionHeight, 0);
       setUpDiagonalLayoutView(firstBlackLineView, optionHeight, margin);
       setUpDiagonalLayoutView(trendingOptionView, optionHeight, optionHeight - BLACK_LINE_HEIGHT);
@@ -110,6 +109,7 @@ public class DashboardFragment extends BaseFragment {
     layoutParams.setMargins(0, -marginTopInPx, 0, 0);
     layoutParams.height = optionHeightInPx;
     diagonalLayout.setLayoutParams(layoutParams);
+    diagonalLayout.requestLayout();
   }
 
   private void setupToolbar() {
