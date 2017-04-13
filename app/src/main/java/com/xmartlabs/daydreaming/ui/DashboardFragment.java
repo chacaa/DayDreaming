@@ -149,7 +149,10 @@ public class DashboardFragment extends BaseFragment {
           getContext().startActivity(intent);
           break;
         case R.id.nav_login:
-          //TODO go to login
+          intent = Henson.with(getContext())
+            .gotoLoginRegisterActivity()
+            .build();
+          getContext().startActivity(intent);
           break;
         default:
       }
