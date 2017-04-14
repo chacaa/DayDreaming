@@ -92,18 +92,20 @@ public class DashboardFragment extends BaseFragment {
 
   private void setUpView(View view) {
     view.post(() -> {
-      @Dimension(unit = Dimension.PX)
-      int height = dashboardView.getMeasuredHeight() - (2 * BLACK_LINE_HEIGHT);
-      @Dimension(unit = Dimension.PX)
-      int margin = (int) (dashboardView.getMeasuredWidth() * Math.tan(Math.toRadians(7)));
-      @Dimension(unit = Dimension.PX)
-      int optionHeight = ((height + margin * 2) / QUANTITY_OF_OPTIONS);
-      setUpDiagonalLayoutView(customOptionView, optionHeight, 0);
-      setUpDiagonalLayoutView(firstBlackLineView, optionHeight, margin);
-      setUpDiagonalLayoutView(trendingOptionView, optionHeight, optionHeight - BLACK_LINE_HEIGHT);
-      setUpDiagonalLayoutView(secondBlackLineView, optionHeight, margin);
-      setUpDiagonalLayoutView(randomOptionView, optionHeight, optionHeight - BLACK_LINE_HEIGHT);
-      setUpDiagonalLayoutView(bottomBlackView, optionHeight, margin);
+      if (isAdded()) {
+        @Dimension(unit = Dimension.PX)
+        int height = dashboardView.getMeasuredHeight() - (2 * BLACK_LINE_HEIGHT);
+        @Dimension(unit = Dimension.PX)
+        int margin = (int) (dashboardView.getMeasuredWidth() * Math.tan(Math.toRadians(7)));
+        @Dimension(unit = Dimension.PX)
+        int optionHeight = ((height + margin * 2) / QUANTITY_OF_OPTIONS);
+        setUpDiagonalLayoutView(customOptionView, optionHeight, 0);
+        setUpDiagonalLayoutView(firstBlackLineView, optionHeight, margin);
+        setUpDiagonalLayoutView(trendingOptionView, optionHeight, optionHeight - BLACK_LINE_HEIGHT);
+        setUpDiagonalLayoutView(secondBlackLineView, optionHeight, margin);
+        setUpDiagonalLayoutView(randomOptionView, optionHeight, optionHeight - BLACK_LINE_HEIGHT);
+        setUpDiagonalLayoutView(bottomBlackView, optionHeight, margin);
+      }
     });
   }
 

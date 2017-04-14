@@ -81,15 +81,15 @@ public class DiagonalLayoutView extends LinearLayout {
     subtitleView.setText(text);
   }
 
-  public void setSubtitleVisible() {
+  public void showSubtitle() {
     subtitleView.setVisibility(View.VISIBLE);
   }
 
-  public void setTitleInvisible() {
+  public void hideTitle() {
     textView.setVisibility(View.GONE);
   }
 
-  public void setSecondaryTextVisible() {
+  public void showSecondaryText() {
     secondaryTextView.setVisibility(View.VISIBLE);
   }
 

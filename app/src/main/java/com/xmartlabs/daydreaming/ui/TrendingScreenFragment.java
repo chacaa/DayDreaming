@@ -71,27 +71,29 @@ public class TrendingScreenFragment extends BaseFragment {
 
   private void setUpView(View view) {
     view.post(() -> {
-      @Dimension(unit = Dimension.PX)
-      int height = scrollView.getMeasuredHeight() - (2 * BLACK_LINE_HEIGHT);
-      @Dimension(unit = Dimension.PX)
-      int margin = (int) (scrollView.getMeasuredWidth() * Math.tan(Math.toRadians(7)));
-      @Dimension(unit = Dimension.PX)
-      int optionHeight = ((height + margin * 2) / QUANTITY_OF_OPTIONS);
-      setUpDiagonalLayoutView(artOptionView, optionHeight, 0);
-      setUpDiagonalLayoutView(firstBlackLineView, optionHeight, margin);
-      setUpDiagonalLayoutView(natureOptionView, optionHeight, optionHeight - BLACK_LINE_HEIGHT);
-      setUpDiagonalLayoutView(secondBlackLineView, optionHeight, margin);
-      setUpDiagonalLayoutView(travelOptionView, optionHeight, optionHeight - BLACK_LINE_HEIGHT);
-      setUpDiagonalLayoutView(thirdBlackLineView, optionHeight, margin);
-      setUpDiagonalLayoutView(animalsOptionView, optionHeight, optionHeight - BLACK_LINE_HEIGHT);
-      setUpDiagonalLayoutView(fourthBlackLineView, optionHeight, margin);
-      setUpDiagonalLayoutView(sportsOptionView, optionHeight, optionHeight - BLACK_LINE_HEIGHT);
-      setUpDiagonalLayoutView(fifthBlackLineView, optionHeight, margin);
-      setUpDiagonalLayoutView(foodOptionView, optionHeight, optionHeight - BLACK_LINE_HEIGHT);
-      setUpDiagonalLayoutView(bottomGrayView, optionHeight / 2, margin);
+      if (isAdded()) {
+        @Dimension(unit = Dimension.PX)
+        int height = scrollView.getMeasuredHeight() - (2 * BLACK_LINE_HEIGHT);
+        @Dimension(unit = Dimension.PX)
+        int margin = (int) (scrollView.getMeasuredWidth() * Math.tan(Math.toRadians(7)));
+        @Dimension(unit = Dimension.PX)
+        int optionHeight = ((height + margin * 2) / QUANTITY_OF_OPTIONS);
+        setUpDiagonalLayoutView(artOptionView, optionHeight, 0);
+        setUpDiagonalLayoutView(firstBlackLineView, optionHeight, margin);
+        setUpDiagonalLayoutView(natureOptionView, optionHeight, optionHeight - BLACK_LINE_HEIGHT);
+        setUpDiagonalLayoutView(secondBlackLineView, optionHeight, margin);
+        setUpDiagonalLayoutView(travelOptionView, optionHeight, optionHeight - BLACK_LINE_HEIGHT);
+        setUpDiagonalLayoutView(thirdBlackLineView, optionHeight, margin);
+        setUpDiagonalLayoutView(animalsOptionView, optionHeight, optionHeight - BLACK_LINE_HEIGHT);
+        setUpDiagonalLayoutView(fourthBlackLineView, optionHeight, margin);
+        setUpDiagonalLayoutView(sportsOptionView, optionHeight, optionHeight - BLACK_LINE_HEIGHT);
+        setUpDiagonalLayoutView(fifthBlackLineView, optionHeight, margin);
+        setUpDiagonalLayoutView(foodOptionView, optionHeight, optionHeight - BLACK_LINE_HEIGHT);
+        setUpDiagonalLayoutView(bottomGrayView, optionHeight / 2, margin);
 
-      setupOptions();
-      bottomViewSetup();
+        setupOptions();
+        bottomViewSetup();
+      }
     });
   }
 
@@ -99,8 +101,8 @@ public class TrendingScreenFragment extends BaseFragment {
     bottomGrayView.setTextSize(14);
     bottomGrayView.setTextColor(R.color.pale_teal);
     bottomGrayView.setSecondaryText(R.string.random_daydream);
-    bottomGrayView.setTitleInvisible();
-    bottomGrayView.setSecondaryTextVisible();
+    bottomGrayView.hideTitle();
+    bottomGrayView.showSecondaryText();
   }
 
   private void setupOptions() {
@@ -122,7 +124,7 @@ public class TrendingScreenFragment extends BaseFragment {
 
   private void setupOption(DiagonalLayoutView diagonalLayoutView) {
     diagonalLayoutView.setTextColor(R.color.white);
-    diagonalLayoutView.setSubtitleVisible();
+    diagonalLayoutView.showSubtitle();
     diagonalLayoutView.setTextSize(14);
     diagonalLayoutView.setSubtitleText("2:33m"); //TODO put the duration of the loaded video
   }
