@@ -95,7 +95,7 @@ public class LoginRegisterFragment extends BaseFragment{
     } else {
       if (!(usernameFieldView.getText().toString().toLowerCase()).equals("santi")){
         usernameErrorView.setVisibility(View.VISIBLE);
-        errorTextView.setText("Wrong user account");
+        errorTextView.setText("Wrong user account"); //TODO change this for the real error message
       }
     }
   }
