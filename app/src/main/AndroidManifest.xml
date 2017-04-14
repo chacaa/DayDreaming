@@ -59,5 +59,11 @@
             android:parentActivityName=".ui.DashboardActivity"
             />
 
+        <activity
+            android:name="com.xmartlabs.daydreaming.ui.TrendingScreenActivity"
+            android:screenOrientation="portrait"
+            android:parentActivityName=".ui.DashboardActivity"
+            />
+
     </application>
 </manifest>

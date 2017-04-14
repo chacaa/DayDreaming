@@ -29,17 +29,46 @@
                 android:scaleType="centerCrop"
                 />
 
-            <TextView
-                android:id="@+id/diagonal_text_view"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
                 android:layout_marginBottom="40dp"
-                android:layout_marginStart="18dp"
-                android:textColor="@color/warm_grey"
-                android:textSize="30sp"
-                android:textStyle="bold"
+                android:layout_marginStart="20dp"
+                android:orientation="vertical"
+                >
+
+                <TextView
+                    android:id="@+id/diagonal_text_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAllCaps="true"
+                    android:textColor="@color/warm_grey"
+                    android:textSize="30sp"
+                    android:textStyle="bold"
+                    />
+
+                <TextView
+                    android:id="@+id/subtitle_text_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:visibility="gone"
+                    />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/secondary_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="bottom"
+                android:layout_gravity="bottom"
+                android:layout_marginBottom="20dp"
+                android:layout_marginStart="20dp"
                 android:textAllCaps="true"
+                android:textColor="@color/pale_teal"
+                android:visibility="gone"
                 />
 
         </FrameLayout>

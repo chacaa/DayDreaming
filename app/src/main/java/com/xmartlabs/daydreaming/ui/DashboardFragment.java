@@ -78,7 +78,10 @@ public class DashboardFragment extends BaseFragment {
   @OnClick(R.id.trending_dashboard_option_view)
   void onClickedTrending() {
     trendingOptionView.setTextColor(R.color.white);
-    //TODO call trending view
+    Intent intent = Henson.with(getContext())
+        .gotoTrendingScreenActivity()
+        .build();
+    getContext().startActivity(intent);
   }
 
   @OnClick(R.id.random_dashboard_option_view)
