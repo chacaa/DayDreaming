@@ -142,7 +142,7 @@
                         android:id="@+id/username_error"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:foregroundGravity="center"
+                        android:foregroundGravity="center_vertical"
                         android:layout_alignParentEnd="true"
                         android:layout_marginEnd="20dp"
                         android:src="@drawable/cross"
@@ -181,7 +181,7 @@
                         android:id="@+id/password_error"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:foregroundGravity="center"
+                        android:foregroundGravity="center_vertical"
                         android:layout_alignParentEnd="true"
                         android:layout_marginEnd="20dp"
                         android:src="@drawable/cross"
@@ -198,7 +198,7 @@
                     android:layout_marginTop="10dp"
                     android:textColor="@color/salmon"
                     android:textSize="14sp"
-                    tools:text="@string/error_hint"
+                    tools:text="@string/error_hint_sign_up"
                     />
 
             </LinearLayout>

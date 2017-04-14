@@ -42,5 +42,5 @@
     <string name="password">Password</string>
     <string name="register">Register</string>
     <string name="sign_in">Sign in</string>
-    <string name="error_hint">Password must be 6 digit long, at least 1 caps, 1 number</string>
+    <string name="error_hint_sign_up">Password must be 6 digit long, at least 1 caps, 1 number</string>
 </resources>

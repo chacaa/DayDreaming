@@ -12,7 +12,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.VideoView;
 
-import com.annimon.stream.Objects;
 import com.annimon.stream.Optional;
 import com.hannesdorfmann.fragmentargs.annotation.FragmentWithArgs;
 import com.xmartlabs.daydreaming.R;
@@ -87,10 +86,11 @@ public class LoginRegisterFragment extends BaseFragment{
 
   @OnClick(R.id.create_login_textview)
   void onClickedCreateLogin() {
+    //TODO create user and login user
     if (isRegisterSelected) {
       if (passwordFieldView.getText().toString().length() < 5) {
         passwordErrorView.setVisibility(View.VISIBLE);
-        errorTextView.setText(getResources().getString(R.string.error_hint));
+        errorTextView.setText(getResources().getString(R.string.error_hint_sign_up));
       }
     } else {
       if (!(usernameFieldView.getText().toString().toLowerCase()).equals("santi")){
