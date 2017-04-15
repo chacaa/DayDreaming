@@ -4,15 +4,19 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.support.annotation.ColorRes;
 import android.support.annotation.Dimension;
+import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.github.florent37.diagonallayout.DiagonalLayout;
 import com.xmartlabs.daydreaming.R;
 
 import butterknife.BindView;
@@ -22,6 +26,8 @@ import butterknife.ButterKnife;
  * Created by chaca on 4/4/17.
  */
 public class DiagonalLayoutView extends LinearLayout {
+  @BindView(R.id.diagonal_separator)
+  DiagonalLayout diagonalSeparator;
   @BindView(R.id.diagonal_image)
   ImageView imageView;
   @BindView(R.id.secondary_text_view)
@@ -77,7 +83,7 @@ public class DiagonalLayoutView extends LinearLayout {
     subtitleView.setText(text);
   }
 
-  public void setSubtitleText(String text) {
+  public void setSubtitleText(@NonNull String text) {
     subtitleView.setText(text);
   }
 
@@ -97,7 +103,20 @@ public class DiagonalLayoutView extends LinearLayout {
     secondaryTextView.setText(text);
   }
 
-  public void setSecondaryText(String text) {
+  public void setSecondaryText(@NonNull String text) {
     secondaryTextView.setText(text);
+  }
+
+  public void hideBottomLineSeparator() {
+    diagonalSeparator.setVisibility(View.GONE);
+  }
+
+  public void setDiagonalSeparatorPositionAndSize(@Dimension(unit = Dimension.PX) int optionHeight,
+                                                  @Dimension(unit = Dimension.PX) int marginTop) {
+    LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) diagonalSeparator.getLayoutParams();
+    layoutParams.setMargins(0, -marginTop, 0, 0);
+    layoutParams.height = optionHeight;
+    diagonalSeparator.setLayoutParams(layoutParams);
+    diagonalSeparator.requestLayout();
   }
 }

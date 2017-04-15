@@ -12,11 +12,15 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 
 import com.annimon.stream.Optional;
+import com.annimon.stream.Stream;
 import com.hannesdorfmann.fragmentargs.annotation.FragmentWithArgs;
 import com.xmartlabs.daydreaming.R;
 import com.xmartlabs.daydreaming.helper.ui.MetricsHelper;
 
+import java.util.List;
+
 import butterknife.BindView;
+import butterknife.BindViews;
 
 /**
  * Created by chaca on 4/13/17.
@@ -33,28 +37,21 @@ public class TrendingScreenFragment extends BaseFragment {
   DiagonalLayoutView artOptionView;
   @BindView(R.id.bottom_gray_diagonal_view)
   DiagonalLayoutView bottomGrayView;
-  @BindView(R.id.fifth_black_line_view)
-  DiagonalLayoutView fifthBlackLineView;
-  @BindView(R.id.first_black_line_view)
-  DiagonalLayoutView firstBlackLineView;
   @BindView(R.id.food_option_view)
   DiagonalLayoutView foodOptionView;
-  @BindView(R.id.fourth_black_line_view)
-  DiagonalLayoutView fourthBlackLineView;
   @BindView(R.id.nature_option_view)
   DiagonalLayoutView natureOptionView;
   @BindView(R.id.scroll_view)
   ScrollView scrollView;
-  @BindView(R.id.second_black_line_view)
-  DiagonalLayoutView secondBlackLineView;
   @BindView(R.id.sports_option_view)
   DiagonalLayoutView sportsOptionView;
-  @BindView(R.id.third_black_line_view)
-  DiagonalLayoutView thirdBlackLineView;
   @BindView(R.id.toolbar)
   Toolbar toolbarView;
   @BindView(R.id.travel_option_view)
   DiagonalLayoutView travelOptionView;
+
+  @BindViews({R.id.nature_option_view, R.id.travel_option_view, R.id.animals_option_view, R.id.sports_option_view})
+  List<DiagonalLayoutView> diagonalViews;
 
   @LayoutRes
   @Override
@@ -78,40 +75,37 @@ public class TrendingScreenFragment extends BaseFragment {
         int margin = (int) (scrollView.getMeasuredWidth() * Math.tan(Math.toRadians(7)));
         @Dimension(unit = Dimension.PX)
         int optionHeight = ((height + margin * 2) / QUANTITY_OF_OPTIONS);
-        setUpDiagonalLayoutView(artOptionView, optionHeight, 0);
-        setUpDiagonalLayoutView(firstBlackLineView, optionHeight, margin);
-        setUpDiagonalLayoutView(natureOptionView, optionHeight, optionHeight - BLACK_LINE_HEIGHT);
-        setUpDiagonalLayoutView(secondBlackLineView, optionHeight, margin);
-        setUpDiagonalLayoutView(travelOptionView, optionHeight, optionHeight - BLACK_LINE_HEIGHT);
-        setUpDiagonalLayoutView(thirdBlackLineView, optionHeight, margin);
-        setUpDiagonalLayoutView(animalsOptionView, optionHeight, optionHeight - BLACK_LINE_HEIGHT);
-        setUpDiagonalLayoutView(fourthBlackLineView, optionHeight, margin);
-        setUpDiagonalLayoutView(sportsOptionView, optionHeight, optionHeight - BLACK_LINE_HEIGHT);
-        setUpDiagonalLayoutView(fifthBlackLineView, optionHeight, margin);
-        setUpDiagonalLayoutView(foodOptionView, optionHeight, optionHeight - BLACK_LINE_HEIGHT);
-        setUpDiagonalLayoutView(bottomGrayView, optionHeight / 2, margin);
 
-        setupOptions();
-        bottomViewSetup();
+        setupOptionsItems(margin, optionHeight);
+        bottomViewSetup(optionHeight, margin);
       }
     });
   }
 
-  private void bottomViewSetup() {
+  private void setupOptionsItems(int margin, int optionHeight) {
+    setUpDiagonalLayoutView(artOptionView, optionHeight, 0);
+    artOptionView.setDiagonalSeparatorPositionAndSize(optionHeight, margin);
+    setupOption(artOptionView);
+    setUpDiagonalLayoutView(foodOptionView, optionHeight, margin - BLACK_LINE_HEIGHT);
+    setupOption(foodOptionView);
+    foodOptionView.hideBottomLineSeparator();
+    Stream.of(diagonalViews)
+        .forEach(diagonalLayoutView -> {
+          setUpDiagonalLayoutView(diagonalLayoutView, optionHeight, margin - BLACK_LINE_HEIGHT);
+          setupOption(diagonalLayoutView);
+          diagonalLayoutView.setDiagonalSeparatorPositionAndSize(optionHeight, margin);
+        });
+  }
+
+  private void bottomViewSetup(@Dimension(unit = Dimension.PX) int optionHeight,
+                               @Dimension(unit = Dimension.PX) int margin) {
+    setUpDiagonalLayoutView(bottomGrayView, optionHeight / 2, margin);
+    bottomGrayView.hideBottomLineSeparator();
     bottomGrayView.setTextSize(14);
     bottomGrayView.setTextColor(R.color.pale_teal);
     bottomGrayView.setSecondaryText(R.string.random_daydream);
     bottomGrayView.hideTitle();
     bottomGrayView.showSecondaryText();
-  }
-
-  private void setupOptions() {
-    setupOption(artOptionView);
-    setupOption(natureOptionView);
-    setupOption(travelOptionView);
-    setupOption(animalsOptionView);
-    setupOption(sportsOptionView);
-    setupOption(foodOptionView);
   }
 
   private void setUpDiagonalLayoutView(@NonNull DiagonalLayoutView diagonalLayout, int optionHeightInPx, int marginTopInPx) {

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -41,28 +42,12 @@
                 />
 
             <com.xmartlabs.daydreaming.ui.DiagonalLayoutView
-                android:id="@+id/first_black_line_view"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:src="@color/black"
-                app:diagonal_angle="7"
-                />
-
-            <com.xmartlabs.daydreaming.ui.DiagonalLayoutView
                 android:id="@+id/nature_option_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:src="@drawable/nature"
                 android:text="@string/nature"
                 android:textColor="@color/warm_grey"
-                app:diagonal_angle="7"
-                />
-
-            <com.xmartlabs.daydreaming.ui.DiagonalLayoutView
-                android:id="@+id/second_black_line_view"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:src="@color/black"
                 app:diagonal_angle="7"
                 />
 
@@ -77,14 +62,6 @@
                 />
 
             <com.xmartlabs.daydreaming.ui.DiagonalLayoutView
-                android:id="@+id/third_black_line_view"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:src="@color/black"
-                app:diagonal_angle="7"
-                />
-
-            <com.xmartlabs.daydreaming.ui.DiagonalLayoutView
                 android:id="@+id/animals_option_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -95,28 +72,12 @@
                 />
 
             <com.xmartlabs.daydreaming.ui.DiagonalLayoutView
-                android:id="@+id/fourth_black_line_view"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:src="@color/black"
-                app:diagonal_angle="7"
-                />
-
-            <com.xmartlabs.daydreaming.ui.DiagonalLayoutView
                 android:id="@+id/sports_option_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:src="@drawable/sports"
                 android:text="@string/sports"
                 android:textColor="@color/warm_grey"
-                app:diagonal_angle="7"
-                />
-
-            <com.xmartlabs.daydreaming.ui.DiagonalLayoutView
-                android:id="@+id/fifth_black_line_view"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:src="@color/black"
                 app:diagonal_angle="7"
                 />
 
