@@ -18,4 +18,5 @@
     <color name="white">@android:color/white</color>
     <color name="warm_grey">#979797</color>
     <color name="pale_teal">#67c1b5</color>
+    <color name="salmon">#ff8080</color>
 </resources>

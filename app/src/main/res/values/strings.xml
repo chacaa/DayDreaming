@@ -7,7 +7,7 @@
     <string name="open">Open</string>
     <string name="close">Close</string>
     <string name="welcome">Welcome</string>
-    <string name="log_in">Log in</string>
+    <string name="log_in">Login</string>
     <string name="field_required">Field required</string>
     <string name="the_email_not_valid">The email is not valid</string>
     <string name="home_custom">Custom</string>
@@ -38,4 +38,10 @@
         ultrices eget eros.
     </string>
     <string name="random_daydream">Random daydream</string>
+    <string name="create_user">Create user</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="register">Register</string>
+    <string name="sign_in">Sign in</string>
+    <string name="error_hint_sign_up">Password must be 6 digit long, at least 1 caps, 1 number</string>
 </resources>
