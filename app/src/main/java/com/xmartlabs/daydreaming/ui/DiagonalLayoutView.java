@@ -46,7 +46,6 @@ public class DiagonalLayoutView extends LinearLayout {
     View view = getView(context);
     ButterKnife.bind(this, view);
     setupViewProperties(attrs);
-
   }
 
   private View getView(Context context) {
