@@ -16,7 +16,6 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.github.florent37.diagonallayout.DiagonalLayout;
 import com.xmartlabs.daydreaming.R;
 
 import butterknife.BindView;
