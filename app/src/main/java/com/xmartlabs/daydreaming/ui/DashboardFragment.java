@@ -190,12 +190,13 @@ public class DashboardFragment extends BaseFragment {
     new AlertDialog.Builder(getContext())
         .setTitle(R.string.rate)
         .setMessage(R.string.rate_app_now)
-        .setPositiveButton(R.string.rate_button, (dialog, which) -> openURL())
-        .setNegativeButton(R.string.close, (dialog, which) -> {})
+        .setPositiveButton(R.string.rate_button, (dialog, which) -> openRateAppURL())
+        .setNegativeButton(R.string.close, null)
         .show();
   }
 
-  private void openURL() {
+  private void openRateAppURL() {
+    //TODO change the url to the google play app's url
     Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(XMARTLABS_URL));
     startActivity(browserIntent);
   }
