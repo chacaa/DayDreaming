@@ -37,6 +37,7 @@
         eu in lectus. Vivamus velit est,fermentum lacinia sollicitudin faucibus,
         ultrices eget eros.
     </string>
+    <string name="random_daydream">Random daydream</string>
     <string name="create_user">Create user</string>
     <string name="username">Username</string>
     <string name="password">Password</string>

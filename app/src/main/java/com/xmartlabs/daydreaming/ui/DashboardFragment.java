@@ -40,14 +40,10 @@ public class DashboardFragment extends BaseFragment {
   LinearLayout dashboardView;
   @BindView(R.id.drawer_layout)
   DrawerLayout drawerView;
-  @BindView(R.id.first_black_line_separator_view)
-  DiagonalLayoutView firstBlackLineView;
   @BindView(R.id.nav_view)
   NavigationView navigationView;
   @BindView(R.id.random_dashboard_option_view)
   DiagonalLayoutView randomOptionView;
-  @BindView(R.id.second_black_line_separator_view)
-  DiagonalLayoutView secondBlackLineView;
   @BindView(R.id.toolbar)
   Toolbar toolbarView;
   @BindView(R.id.trending_dashboard_option_view)
@@ -78,7 +74,10 @@ public class DashboardFragment extends BaseFragment {
   @OnClick(R.id.trending_dashboard_option_view)
   void onClickedTrending() {
     trendingOptionView.setTextColor(R.color.white);
-    //TODO call trending view
+    Intent intent = Henson.with(getContext())
+        .gotoTrendingScreenActivity()
+        .build();
+    getContext().startActivity(intent);
   }
 
   @OnClick(R.id.random_dashboard_option_view)
@@ -89,27 +88,43 @@ public class DashboardFragment extends BaseFragment {
 
   private void setUpView(View view) {
     view.post(() -> {
-      @Dimension(unit = Dimension.PX)
-      int height = dashboardView.getMeasuredHeight() - (2 * BLACK_LINE_HEIGHT);
-      @Dimension(unit = Dimension.PX)
-      int margin = (int) (dashboardView.getMeasuredWidth() * Math.tan(Math.toRadians(7)));
-      @Dimension(unit = Dimension.PX)
-      int optionHeight = ((height + margin * 2) / QUANTITY_OF_OPTIONS);
-      setUpDiagonalLayoutView(customOptionView, optionHeight, 0);
-      setUpDiagonalLayoutView(firstBlackLineView, optionHeight, margin);
-      setUpDiagonalLayoutView(trendingOptionView, optionHeight, optionHeight - BLACK_LINE_HEIGHT);
-      setUpDiagonalLayoutView(secondBlackLineView, optionHeight, margin);
-      setUpDiagonalLayoutView(randomOptionView, optionHeight, optionHeight - BLACK_LINE_HEIGHT);
-      setUpDiagonalLayoutView(bottomBlackView, optionHeight, margin);
+      if (isAdded()) {
+        @Dimension(unit = Dimension.PX)
+        int height = dashboardView.getMeasuredHeight() - (2 * BLACK_LINE_HEIGHT);
+        @Dimension(unit = Dimension.PX)
+        int margin = (int) (dashboardView.getMeasuredWidth() * Math.tan(Math.toRadians(7)));
+        @Dimension(unit = Dimension.PX)
+        int optionHeight = ((height + margin * 2) / QUANTITY_OF_OPTIONS);
+
+        setupOptionsItems(margin, optionHeight);
+        hideUnnecessarySeparators();
+      }
     });
   }
 
-  private void setUpDiagonalLayoutView(@NonNull DiagonalLayoutView diagonalLayout, int optionHeightInPx, int marginTopInPx) {
+  private void setupOptionsItems(int margin, int optionHeight) {
+    setUpDiagonalLayoutView(customOptionView, optionHeight, 0);
+    customOptionView.setDiagonalSeparatorPositionAndSize(optionHeight, margin);
+    setUpDiagonalLayoutView(trendingOptionView, optionHeight, margin - BLACK_LINE_HEIGHT);
+    trendingOptionView.setDiagonalSeparatorPositionAndSize(optionHeight, margin);
+    setUpDiagonalLayoutView(randomOptionView, optionHeight, margin - BLACK_LINE_HEIGHT);
+    setUpDiagonalLayoutView(bottomBlackView, optionHeight, margin);
+  }
+
+  private void hideUnnecessarySeparators() {
+    bottomBlackView.hideBottomLineSeparator();
+    randomOptionView.hideBottomLineSeparator();
+  }
+
+  private void setUpDiagonalLayoutView(@NonNull DiagonalLayoutView diagonalLayout,
+                                       @Dimension(unit = Dimension.PX) int optionHeight,
+                                       @Dimension(unit = Dimension.PX)  int marginTop) {
     LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) diagonalLayout.getLayoutParams();
-    layoutParams.setMargins(0, -marginTopInPx, 0, 0);
-    layoutParams.height = optionHeightInPx;
+    layoutParams.setMargins(0, -marginTop, 0, 0);
+    layoutParams.height = optionHeight;
     diagonalLayout.setLayoutParams(layoutParams);
     diagonalLayout.requestLayout();
+    diagonalLayout.setDiagonalSeparatorPositionAndSize(optionHeight, marginTop);
   }
 
   private void setupToolbar() {

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/black"
+        android:layout_alignParentTop="true"
+        style="@style/Toolbar"
+        />
+
+    <ScrollView
+        android:id="@+id/scroll_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbar"
+        android:overScrollMode="never"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/black"
+            android:orientation="vertical"
+            >
+
+            <com.xmartlabs.daydreaming.ui.DiagonalLayoutView
+                android:id="@+id/art_option_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/art"
+                android:text="@string/art"
+                android:textColor="@color/warm_grey"
+                app:diagonal_angle="7"
+                />
+
+            <com.xmartlabs.daydreaming.ui.DiagonalLayoutView
+                android:id="@+id/nature_option_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/nature"
+                android:text="@string/nature"
+                android:textColor="@color/warm_grey"
+                app:diagonal_angle="7"
+                />
+
+            <com.xmartlabs.daydreaming.ui.DiagonalLayoutView
+                android:id="@+id/travel_option_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/traveling"
+                android:text="@string/travel"
+                android:textColor="@color/warm_grey"
+                app:diagonal_angle="7"
+                />
+
+            <com.xmartlabs.daydreaming.ui.DiagonalLayoutView
+                android:id="@+id/animals_option_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/animals"
+                android:text="@string/animals"
+                android:textColor="@color/warm_grey"
+                app:diagonal_angle="7"
+                />
+
+            <com.xmartlabs.daydreaming.ui.DiagonalLayoutView
+                android:id="@+id/sports_option_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/sports"
+                android:text="@string/sports"
+                android:textColor="@color/warm_grey"
+                app:diagonal_angle="7"
+                />
+
+            <com.xmartlabs.daydreaming.ui.DiagonalLayoutView
+                android:id="@+id/food_option_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/food"
+                android:text="@string/food"
+                android:textColor="@color/white"
+                app:diagonal_angle="7"
+                />
+
+            <com.xmartlabs.daydreaming.ui.DiagonalLayoutView
+                android:id="@+id/bottom_gray_diagonal_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@color/gray"
+                app:diagonal_angle="7"
+                />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</RelativeLayout>
