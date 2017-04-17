@@ -83,7 +83,10 @@ public class DashboardFragment extends BaseFragment {
   @OnClick(R.id.random_dashboard_option_view)
   void onClickedRandom() {
     randomOptionView.setTextColor(R.color.white);
-    //TODO call random view
+    Intent intent = Henson.with(getContext())
+        .gotoVideoActivity()
+        .build();
+    getContext().startActivity(intent);
   }
 
   private void setUpView(View view) {
@@ -118,7 +121,7 @@ public class DashboardFragment extends BaseFragment {
 
   private void setUpDiagonalLayoutView(@NonNull DiagonalLayoutView diagonalLayout,
                                        @Dimension(unit = Dimension.PX) int optionHeight,
-                                       @Dimension(unit = Dimension.PX)  int marginTop) {
+                                       @Dimension(unit = Dimension.PX) int marginTop) {
     LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) diagonalLayout.getLayoutParams();
     layoutParams.setMargins(0, -marginTop, 0, 0);
     layoutParams.height = optionHeight;
@@ -165,8 +168,8 @@ public class DashboardFragment extends BaseFragment {
           break;
         case R.id.nav_login:
           intent = Henson.with(getContext())
-            .gotoLoginRegisterActivity()
-            .build();
+              .gotoLoginRegisterActivity()
+              .build();
           getContext().startActivity(intent);
           break;
         default:
