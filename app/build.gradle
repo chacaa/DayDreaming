@@ -132,7 +132,7 @@ android {
     }
 }
 
-final ANDROID_SUPPORT_VERSION = '25.3.0'
+final ANDROID_SUPPORT_VERSION = '25.3.1'
 final ANDROID_SUPPORT_TEST_VERSION = '0.5'
 final BULLET_VERSION = 'e5044b53df'
 final BUTTER_KNIFE_VERSION = '8.2.1'
@@ -243,7 +243,6 @@ dependencies {
     compile "io.reactivex.rxjava2:rxjava:${RX_JAVA_VERSION}"
     //compile 'net.ltgt.dagger:bullet:1.0-SNAPSHOT' // Loaded from JitPack
     compile "org.parceler:parceler-api:${PARCELER_VERSION}"
-    compile files('libs/YouTubeAndroidPlayerApi.jar')
     compile fileTree(include: ['*.jar'], dir: 'libs')
     provided "org.projectlombok:lombok:${LOMBOK_VERSION}"
     testCompile 'junit:junit:4.12'

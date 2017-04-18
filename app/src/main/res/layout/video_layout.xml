@@ -5,12 +5,11 @@
     android:layout_height="match_parent"
     >
 
-    <com.google.android.youtube.player.YouTubePlayerView
-        android:id="@+id/youtube_player_view"
+    <FrameLayout
+        android:id="@+id/youtube_fragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scaleX="1.2"
-        android:scaleY="1.2"
+        android:layout_centerInParent="true"
         />
 
 </RelativeLayout>

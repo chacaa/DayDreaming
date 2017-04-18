@@ -44,4 +44,5 @@
     <string name="register">Register</string>
     <string name="sign_in">Sign in</string>
     <string name="error_hint_sign_up">Password must be 6 digit long, at least 1 caps, 1 number</string>
+    <string name="api_key">AIzaSyAEFt2rWmsB7WdNb064E3nJ0wR5lCm1rGI</string>
 </resources>
