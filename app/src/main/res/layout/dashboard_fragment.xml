@@ -82,6 +82,14 @@
         android:layout_gravity="start"
         >
 
+        <ImageView
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_gravity="top|center_horizontal"
+            android:src="@drawable/daydreaming_icon"
+            android:layout_marginTop="60dp"
+            />
+
         <android.support.design.widget.NavigationView
             android:id="@+id/nav_view"
             android:layout_width="wrap_content"
