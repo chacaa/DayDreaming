@@ -9,6 +9,8 @@
         android:id="@+id/youtube_player_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:scaleX="1.2"
+        android:scaleY="1.2"
         />
 
 </RelativeLayout>

@@ -14,17 +14,18 @@ import com.xmartlabs.daydreaming.R;
  */
 @HensonNavigable
 public class VideoActivity extends YouTubeBaseActivity {
-  public static final String API_KEY = "AIzaSyBPWrICs4RmQiPvA_7XJLkH1b2Y-93TVXc";
+  public static final String API_KEY = "AIzaSyAEFt2rWmsB7WdNb064E3nJ0wR5lCm1rGI";
   public static final String VIDEO_ID = "V_BEOsCvKqI";
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.video_layout);
+    setupYoutubePlayerView();
+  }
 
-    YouTubePlayerView youTubePlayerView =
-        (YouTubePlayerView) findViewById(R.id.youtube_player_view);
-
+  private void setupYoutubePlayerView() {
+    YouTubePlayerView youTubePlayerView = (YouTubePlayerView) findViewById(R.id.youtube_player_view);
     youTubePlayerView.initialize(API_KEY,
         new YouTubePlayer.OnInitializedListener() {
           @Override
@@ -37,7 +38,6 @@ public class VideoActivity extends YouTubeBaseActivity {
           @Override
           public void onInitializationFailure(YouTubePlayer.Provider provider,
                                               YouTubeInitializationResult youTubeInitializationResult) {
-
           }
         });
   }
