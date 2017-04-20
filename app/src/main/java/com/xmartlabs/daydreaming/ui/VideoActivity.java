@@ -9,7 +9,6 @@ import com.f2prateek.dart.HensonNavigable;
  */
 @HensonNavigable
 public class VideoActivity extends SingleFragmentActivity {
-
   @NonNull
   @Override
   protected BaseFragment createFragment() {

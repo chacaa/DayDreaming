@@ -4,17 +4,17 @@ import android.content.Context;
 import android.media.AudioManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.LayoutRes;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.AppCompatSeekBar;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.SeekBar;
 import android.widget.VideoView;
 
 import com.annimon.stream.Optional;
@@ -24,32 +24,44 @@ import com.xmartlabs.daydreaming.R;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-
 /**
  * Created by chaca on 4/18/17.
  */
 @FragmentWithArgs
 public class VideoFragment extends BaseFragment {
+  public static final int DELAY_IN_MS = 100;
   //TODO receive this from a service and remove it from here
-  public static final String VIDEO_ID = "https://redirector.googlevideo.com/videoplayback?initc" +
-      "wndbps=5718750&mm=31&mn=sn-aiglln67&ip=78.157.200.133&key=yt6&source=youtube&pl=19&dur=1" +
-      "31.378&mt=1492635569&mv=m&id=o-AMGU-yxiAZX1GAzjx7AFD1ouRDrxjHLXdpbszmGfPYVI&ei=IdD3WM3kM" +
-      "8Sy4gLU4KvAAw&ms=au&sparams=dur%2Cei%2Cid%2Cinitcwndbps%2Cip%2Cipbits%2Citag%2Clmt%2Cmim" +
-      "e%2Cmm%2Cmn%2Cms%2Cmv%2Cpl%2Cratebypass%2Crequiressl%2Csource%2Cupn%2Cexpire&lmt=1472444" +
-      "834468162&itag=22&upn=DrHcr_zxS3I&ipbits=0&ratebypass=yes&mime=video%2Fmp4&requiressl=ye" +
-      "s&expire=1492657282&signature=9896E9C95C932848C935E7E1144FA8061F50ABCC.CAB9448BA220B33F5" +
-      "44CE18D1915A9411E5C290A";
+  public static final String VIDEO_ID = "https://redirector.googlevideo.com/videoplayback?pl=19&requiressl=yes&rateby" +
+      "pass=yes&initcwndbps=5266250&sparams=dur%2Cei%2Cid%2Cinitcwndbps%2Cip%2Cipbits%2Citag%2Clmt%2Cmime%2Cmm%2Cmn%2" +
+      "Cms%2Cmv%2Cpl%2Cratebypass%2Crequiressl%2Csource%2Cupn%2Cexpire&expire=1492736627&itag=22&mime=video%2Fmp4&sou" +
+      "rce=youtube&ms=au&mt=1492714949&mv=m&lmt=1472444834468162&dur=131.378&mm=31&mn=sn-aiglln67&id=o-AFCWm8lpW66s59" +
+      "I0D766l-lsK7_ZQrr4JKkOhDnUD0qT&ei=Ewb5WJCuFMbZogOFoYrQBg&upn=V6VjAc144mE&ipbits=0&ip=78.157.200.133&key=yt6&si" +
+      "gnature=5D8D6F4EFFD3C51F9D0B45CF8F349BCCD5D08B52.81119591A9853B27E1A3BA1F944EC50182324377";
 
   @BindView(R.id.mute_button)
   ImageView muteButtonView;
-  @BindView(R.id.toolbar)
-  Toolbar toolbarView;
-  @BindView(R.id.video_player_view)
-  VideoView videoPlayerView;
-  @BindView(R.id.video_control_view)
-  RelativeLayout videoControllersView;
   @BindView(R.id.play_pause_button)
   ImageView playPauseButtonView;
+  @BindView(R.id.video_progress_bar)
+  AppCompatSeekBar videoProgressSeekBarView;
+  @BindView(R.id.toolbar)
+  Toolbar toolbarView;
+  @BindView(R.id.video_control_view)
+  RelativeLayout videoControllersView;
+  @BindView(R.id.video_player_view)
+  VideoView videoPlayerView;
+
+  private Handler handler = new Handler();
+  private int volume;
+  private Runnable updateTimeTask = new Runnable() {
+    public void run() {
+      if (isAdded()) {
+        videoProgressSeekBarView.setProgress(videoPlayerView.getCurrentPosition());
+        videoProgressSeekBarView.setMax(videoPlayerView.getDuration());
+        handler.postDelayed(this, DELAY_IN_MS);
+      }
+    }
+  };
 
   @LayoutRes
   @Override
@@ -57,20 +69,35 @@ public class VideoFragment extends BaseFragment {
     return R.layout.video_layout;
   }
 
-  @NonNull
   @Override
-  public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-    View view = super.onCreateView(inflater, container, savedInstanceState);
-    setupVideoPlayer();
+  public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+    super.onViewCreated(view, savedInstanceState);
     setupToolbar();
-    toolbarView.collapseActionView();
-    return view;
+    setupVideoPlayer();
+    setupVolumeImage();
   }
 
-  @OnClick(R.id.close_controllers)
-  void onClickedCloseButton() {
-    videoControllersView.setVisibility(View.GONE);
-  }
+//TODO see if i can make the toolbar hide and show by touching the screen, it is working sometimes but needs to be fix
+//  @BindView(R.id.main_appbar)
+//  AppBarLayout appBarLayout;
+//
+//  private boolean isHidden = true;
+//
+//  @OnTouch(R.id.video_player_view)
+//  boolean onTouchedScreen() {
+//    AppCompatActivity activity = (AppCompatActivity) getActivity();
+//    if (isHidden) {
+//      Optional.ofNullable(activity.getSupportActionBar())
+//          .ifPresent(ActionBar::show);
+//      appBarLayout.setVisibility(View.VISIBLE);
+//    } else {
+//      Optional.ofNullable(activity.getSupportActionBar())
+//          .ifPresent(ActionBar::hide);
+//      appBarLayout.setVisibility(View.GONE);
+//    }
+//    isHidden = !isHidden;
+//    return true;
+//  }
 
   @OnClick(R.id.play_pause_button)
   void onClickedPauseButton() {
@@ -87,14 +114,25 @@ public class VideoFragment extends BaseFragment {
   void onClickedMuteButton() {
     AudioManager audioManager = (AudioManager) getActivity().getSystemService(Context.AUDIO_SERVICE);
     if (audioManager.getStreamVolume(AudioManager.STREAM_MUSIC) > 0) {
+      volume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
       audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, 0, 0);
       //noinspection deprecation
       muteButtonView.setImageDrawable(getResources().getDrawable(R.drawable.sound_on));
     } else {
-      audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, 100, 0);
+      audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, volume == 0 ? 100 : volume, 0);
       //noinspection deprecation
       muteButtonView.setImageDrawable(getResources().getDrawable(R.drawable.sound_off));
     }
+  }
+
+  @OnClick(R.id.next_button)
+  void onClickedNextButton() {
+    //TODO go to next video
+  }
+
+  @OnClick(R.id.prev_button)
+  void onClickedPrevButton() {
+    //TODO go to prev video
   }
 
   private void setPlayPauseButtonImage(@DrawableRes int image) {
@@ -103,10 +141,37 @@ public class VideoFragment extends BaseFragment {
   }
 
   private void setupVideoPlayer() {
+    setupVideo();
+    setupVideoProgressBar();
+  }
+
+  private void setupVideo() {
     Uri uri = Uri.parse(VIDEO_ID);
     videoPlayerView.setVideoURI(uri);
     videoPlayerView.start();
     videoPlayerView.setOnPreparedListener(mediaPlayer -> mediaPlayer.setLooping(true));
+  }
+
+  private void setupVideoProgressBar() {
+    updateProgressBar();
+    videoProgressSeekBarView.setOnSeekBarChangeListener(
+        new SeekBar.OnSeekBarChangeListener() {
+          @Override
+          public void onStopTrackingTouch(SeekBar seekBar) {
+          }
+
+          @Override
+          public void onStartTrackingTouch(SeekBar seekBar) {
+          }
+
+          @Override
+          public void onProgressChanged(SeekBar seekBar, int progress,
+                                        boolean fromUser) {
+            if (fromUser) {
+              videoPlayerView.seekTo(seekBar.getProgress());
+            }
+          }
+        });
   }
 
   private void setupToolbar() {
@@ -118,5 +183,21 @@ public class VideoFragment extends BaseFragment {
           actionBar.setHomeAsUpIndicator(R.drawable.ic_arrow_back_white_24dp);
           actionBar.setDisplayShowTitleEnabled(false);
         });
+  }
+
+  private void updateProgressBar() {
+    handler.postDelayed(updateTimeTask, 100);
+  }
+
+  private void setupVolumeImage() {
+    AudioManager audioManager = (AudioManager) getActivity().getSystemService(Context.AUDIO_SERVICE);
+    volume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
+    if (volume > 0) {
+      //noinspection deprecation
+      muteButtonView.setImageDrawable(getResources().getDrawable(R.drawable.sound_off));
+    } else {
+      //noinspection deprecation
+      muteButtonView.setImageDrawable(getResources().getDrawable(R.drawable.sound_on));
+    }
   }
 }
