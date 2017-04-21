@@ -31,12 +31,13 @@ import butterknife.OnClick;
 public class VideoFragment extends BaseFragment {
   public static final int DELAY_IN_MS = 100;
   //TODO receive this from a service and remove it from here
-  public static final String VIDEO_ID = "https://redirector.googlevideo.com/videoplayback?pl=19&requiressl=yes&rateby" +
-      "pass=yes&initcwndbps=5266250&sparams=dur%2Cei%2Cid%2Cinitcwndbps%2Cip%2Cipbits%2Citag%2Clmt%2Cmime%2Cmm%2Cmn%2" +
-      "Cms%2Cmv%2Cpl%2Cratebypass%2Crequiressl%2Csource%2Cupn%2Cexpire&expire=1492736627&itag=22&mime=video%2Fmp4&sou" +
-      "rce=youtube&ms=au&mt=1492714949&mv=m&lmt=1472444834468162&dur=131.378&mm=31&mn=sn-aiglln67&id=o-AFCWm8lpW66s59" +
-      "I0D766l-lsK7_ZQrr4JKkOhDnUD0qT&ei=Ewb5WJCuFMbZogOFoYrQBg&upn=V6VjAc144mE&ipbits=0&ip=78.157.200.133&key=yt6&si" +
-      "gnature=5D8D6F4EFFD3C51F9D0B45CF8F349BCCD5D08B52.81119591A9853B27E1A3BA1F944EC50182324377";
+  public static final String VIDEO_ID = "https://redirector.googlevideo.com/videoplayback?lmt=1471578643331692&spara" +
+      "ms=dur%2Cei%2Cid%2Cinitcwndbps%2Cip%2Cipbits%2Citag%2Clmt%2Cmime%2Cmm%2Cmn%2Cms%2Cmv%2Cpl%2Cratebypass%2Crequ" +
+      "iressl%2Csource%2Cupn%2Cexpire&ipbits=0&requiressl=yes&initcwndbps=892500&source=youtube&ei=uXX5WMyrHMW24wKA9" +
+      "JXAAg&dur=161.100&ratebypass=yes&key=yt6&mime=video%2Fmp4&expire=1492765209&mn=sn-a5m7lnez&ip=2001%3A19f0%3A7" +
+      "001%3Ad32%3A5400%3Aff%3Afe58%3A19e7&mm=31&itag=22&pl=48&signature=BDF0A6A6CD5DAA072864E620C6B56B0EA71C46F1.84" +
+      "ACFAAFAA22A096AFE23CBC1CE2237356108E0D&id=o-ANaqAFXmy3ap61faSAI3Hwu_AtyqNn6g6QzodksIpZ6d&mv=m&upn=2zjhaDBAdoY" +
+      "&mt=1492743503&ms=au";
 
   @BindView(R.id.mute_button)
   ImageView muteButtonView;
@@ -102,26 +103,29 @@ public class VideoFragment extends BaseFragment {
   @OnClick(R.id.play_pause_button)
   void onClickedPauseButton() {
     if (videoPlayerView.isPlaying()) {
-      videoPlayerView.pause();
-      setPlayPauseButtonImage(R.drawable.play);
+      pause();
     } else {
-      videoPlayerView.start();
-      setPlayPauseButtonImage(R.drawable.pause);
+      play();
     }
+  }
+
+  private void play() {
+    videoPlayerView.start();
+    setPlayPauseButtonImage(R.drawable.pause);
+  }
+
+  private void pause() {
+    videoPlayerView.pause();
+    setPlayPauseButtonImage(R.drawable.play);
   }
 
   @OnClick(R.id.mute_button)
   void onClickedMuteButton() {
     AudioManager audioManager = (AudioManager) getActivity().getSystemService(Context.AUDIO_SERVICE);
     if (audioManager.getStreamVolume(AudioManager.STREAM_MUSIC) > 0) {
-      volume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
-      audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, 0, 0);
-      //noinspection deprecation
-      muteButtonView.setImageDrawable(getResources().getDrawable(R.drawable.sound_on));
+      mute(audioManager);
     } else {
-      audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, volume == 0 ? 100 : volume, 0);
-      //noinspection deprecation
-      muteButtonView.setImageDrawable(getResources().getDrawable(R.drawable.sound_off));
+      unmute(audioManager);
     }
   }
 
@@ -192,12 +196,24 @@ public class VideoFragment extends BaseFragment {
   private void setupVolumeImage() {
     AudioManager audioManager = (AudioManager) getActivity().getSystemService(Context.AUDIO_SERVICE);
     volume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
-    if (volume > 0) {
-      //noinspection deprecation
-      muteButtonView.setImageDrawable(getResources().getDrawable(R.drawable.sound_off));
-    } else {
-      //noinspection deprecation
-      muteButtonView.setImageDrawable(getResources().getDrawable(R.drawable.sound_on));
-    }
+    setVolumeButtonImage();
+  }
+
+  private void unmute(AudioManager audioManager) {
+    audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, volume == 0 ? 100 : volume, 0);
+    //noinspection deprecation
+    muteButtonView.setImageDrawable(getResources().getDrawable(R.drawable.sound_off));
+  }
+
+  private void mute(AudioManager audioManager) {
+    volume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
+    audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, 0, 0);
+    //noinspection deprecation
+    muteButtonView.setImageDrawable(getResources().getDrawable(R.drawable.sound_on));
+  }
+
+  private void setVolumeButtonImage() {
+    //noinspection deprecation
+    muteButtonView.setImageDrawable(getResources().getDrawable(volume > 0 ? R.drawable.sound_off : R.drawable.sound_on));
   }
 }
