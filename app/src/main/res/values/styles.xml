@@ -108,4 +108,13 @@
         <item name="android:textColor">@color/warm_grey</item>
         <item name="android:textSize">16sp</item>
     </style>
+
+    <style name="SelectableItemBackgroundBorderless">
+        <item name="android:theme">@style/SelectableItemTheme</item>
+        <item name="android:background">?attr/selectableItemBackgroundBorderless</item>
+    </style>
+
+    <style name="SelectableItemTheme">
+        <item name="colorControlHighlight">#dfe8ed</item>
+    </style>
 </resources>

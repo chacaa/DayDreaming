@@ -86,6 +86,10 @@ public class DashboardFragment extends BaseFragment {
   @OnClick(R.id.random_dashboard_option_view)
   void onClickedRandom() {
     randomOptionView.setTextColor(R.color.white);
+    Intent intent = Henson.with(getContext())
+        .gotoVideoActivity()
+        .build();
+    getContext().startActivity(intent);
   }
 
   private void setUpView(View view) {
