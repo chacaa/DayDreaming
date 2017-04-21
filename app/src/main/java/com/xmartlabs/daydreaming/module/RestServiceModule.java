@@ -5,6 +5,7 @@ import android.content.Context;
 import com.google.gson.Gson;
 import com.xmartlabs.daydreaming.R;
 import com.xmartlabs.daydreaming.service.AuthService;
+import com.xmartlabs.daydreaming.service.VideoService;
 import com.xmartlabs.daydreaming.service.common.ServiceStringConverter;
 
 import javax.inject.Named;
@@ -52,6 +53,11 @@ public class RestServiceModule {
     return retrofit.create(AuthService.class);
   }
 
+  @Provides
+  @Singleton
+  VideoService provideVideoService(Retrofit retrofit) {
+    return retrofit.create(VideoService.class);
+  }
 
   @Provides
   @Singleton

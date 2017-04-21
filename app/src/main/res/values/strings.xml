@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name" translatable="false">Day Dreaming</string>
-    <string name="url_service" translatable="false">https://api.github.com/</string><!-- TODO -->
+    <string name="url_service" translatable="false">http://192.168.181.241:3000/</string>
 
     <string name="loading">Loading…</string>
     <string name="message_error_service_call">Oops! Something went wrong, please try again.</string>

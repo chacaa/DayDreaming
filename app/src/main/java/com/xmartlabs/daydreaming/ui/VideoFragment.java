@@ -18,11 +18,23 @@ import android.widget.SeekBar;
 import android.widget.VideoView;
 
 import com.annimon.stream.Optional;
+import com.hannesdorfmann.fragmentargs.annotation.Arg;
 import com.hannesdorfmann.fragmentargs.annotation.FragmentWithArgs;
 import com.xmartlabs.daydreaming.R;
+import com.xmartlabs.daydreaming.controller.VideoController;
+import com.xmartlabs.daydreaming.model.Video;
+
+import java.util.Collections;
+import java.util.List;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import io.reactivex.Single;
+import io.reactivex.SingleObserver;
+import io.reactivex.disposables.Disposable;
+import timber.log.Timber;
 
 /**
  * Created by chaca on 4/18/17.
@@ -30,14 +42,14 @@ import butterknife.OnClick;
 @FragmentWithArgs
 public class VideoFragment extends BaseFragment {
   public static final int DELAY_IN_MS = 100;
-  //TODO receive this from a service and remove it from here
-  public static final String VIDEO_ID = "https://redirector.googlevideo.com/videoplayback?lmt=1471578643331692&spara" +
-      "ms=dur%2Cei%2Cid%2Cinitcwndbps%2Cip%2Cipbits%2Citag%2Clmt%2Cmime%2Cmm%2Cmn%2Cms%2Cmv%2Cpl%2Cratebypass%2Crequ" +
-      "iressl%2Csource%2Cupn%2Cexpire&ipbits=0&requiressl=yes&initcwndbps=892500&source=youtube&ei=uXX5WMyrHMW24wKA9" +
-      "JXAAg&dur=161.100&ratebypass=yes&key=yt6&mime=video%2Fmp4&expire=1492765209&mn=sn-a5m7lnez&ip=2001%3A19f0%3A7" +
-      "001%3Ad32%3A5400%3Aff%3Afe58%3A19e7&mm=31&itag=22&pl=48&signature=BDF0A6A6CD5DAA072864E620C6B56B0EA71C46F1.84" +
-      "ACFAAFAA22A096AFE23CBC1CE2237356108E0D&id=o-ANaqAFXmy3ap61faSAI3Hwu_AtyqNn6g6QzodksIpZ6d&mv=m&upn=2zjhaDBAdoY" +
-      "&mt=1492743503&ms=au";
+
+  @Inject
+  VideoController videoController;
+
+  @Arg(required = false)
+  String theme;
+  @Arg(required = false)
+  String type;
 
   @BindView(R.id.mute_button)
   ImageView muteButtonView;
@@ -62,7 +74,10 @@ public class VideoFragment extends BaseFragment {
       }
     }
   };
+  private List<Video> videos = Collections.emptyList();
   private int volume;
+  private Video video;
+  private int currentIndex;
 
   @LayoutRes
   @Override
@@ -74,7 +89,7 @@ public class VideoFragment extends BaseFragment {
   public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
     setupToolbar();
-    setupVideoPlayer();
+    getVideos();
     setupVolumeImage();
   }
 
@@ -131,12 +146,12 @@ public class VideoFragment extends BaseFragment {
 
   @OnClick(R.id.next_button)
   void onClickedNextButton() {
-    //TODO go to next video
+    playVideo(currentIndex == videos.size() - 1 ? 0 : currentIndex++);
   }
 
   @OnClick(R.id.prev_button)
   void onClickedPrevButton() {
-    //TODO go to prev video
+    playVideo(currentIndex == 0 ? videos.size() - 1 : currentIndex--);
   }
 
   private void setPlayPauseButtonImage(@DrawableRes int image) {
@@ -150,7 +165,7 @@ public class VideoFragment extends BaseFragment {
   }
 
   private void setupVideo() {
-    Uri uri = Uri.parse(VIDEO_ID);
+    Uri uri = Uri.parse(video.getId());
     videoPlayerView.setVideoURI(uri);
     videoPlayerView.start();
     videoPlayerView.setOnPreparedListener(mediaPlayer -> mediaPlayer.setLooping(true));
@@ -219,5 +234,38 @@ public class VideoFragment extends BaseFragment {
 
   private void setVolume(AudioManager audioManager, int volume) {
     audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, volume, 0);
+  }
+
+  private void getVideos() {
+    videoController.getVideos(theme, type).subscribe(new SingleObserver<List<Video>>() {
+      @Override
+      public void onSubscribe(Disposable d) {
+      }
+
+      @Override
+      public void onSuccess(List<Video> videosList) {
+        videos = videosList;
+        playVideo(0);
+      }
+
+      @Override
+      public void onError(Throwable e) {
+        Timber.e(e.toString());
+      }
+    });
+  }
+
+  private void playVideo(int index) {
+    currentIndex = index;
+    video = videos.get(index);
+    setupVideoPlayer();
+  }
+
+  @Override
+  public void onResume() {
+    super.onResume();
+    if (!videos.isEmpty()) {
+      playVideo(currentIndex);
+    }
   }
 }
