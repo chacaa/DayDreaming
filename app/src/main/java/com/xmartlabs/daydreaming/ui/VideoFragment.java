@@ -52,9 +52,8 @@ public class VideoFragment extends BaseFragment {
   @BindView(R.id.video_player_view)
   VideoView videoPlayerView;
 
-  private Handler handler = new Handler();
-  private int volume;
-  private Runnable updateTimeTask = new Runnable() {
+  private final Handler handler = new Handler();
+  private final Runnable updateTimeTask = new Runnable() {
     public void run() {
       if (isAdded()) {
         videoProgressSeekBarView.setProgress(videoPlayerView.getCurrentPosition());
@@ -63,6 +62,7 @@ public class VideoFragment extends BaseFragment {
       }
     }
   };
+  private int volume;
 
   @LayoutRes
   @Override
