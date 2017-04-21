@@ -200,14 +200,14 @@ public class VideoFragment extends BaseFragment {
   }
 
   private void unmute(AudioManager audioManager) {
-    audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, volume == 0 ? 100 : volume, 0);
+    setVolume(audioManager, volume == 0 ? 100 : volume);
     //noinspection deprecation
     muteButtonView.setImageDrawable(getResources().getDrawable(R.drawable.sound_off));
   }
 
   private void mute(AudioManager audioManager) {
     volume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
-    audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, 0, 0);
+    setVolume(audioManager, 0);
     //noinspection deprecation
     muteButtonView.setImageDrawable(getResources().getDrawable(R.drawable.sound_on));
   }
@@ -215,5 +215,9 @@ public class VideoFragment extends BaseFragment {
   private void setVolumeButtonImage() {
     //noinspection deprecation
     muteButtonView.setImageDrawable(getResources().getDrawable(volume > 0 ? R.drawable.sound_off : R.drawable.sound_on));
+  }
+
+  private void setVolume(AudioManager audioManager, int volume) {
+    audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, volume, 0);
   }
 }
