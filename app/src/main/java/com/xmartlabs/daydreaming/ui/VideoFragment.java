@@ -256,23 +256,24 @@ public class VideoFragment extends BaseFragment {
   }
 
   private void getVideos() {
-    videoController.getVideos(theme, type).subscribe(new SingleObserver<List<Video>>() {
-      @Override
-      public void onSubscribe(Disposable d) {
-      }
+    videoController.getVideos(theme, type)
+        .subscribe(new SingleObserver<List<Video>>() {
+          @Override
+          public void onSubscribe(Disposable d) {
+          }
 
-      @Override
-      public void onSuccess(List<Video> videosList) {
-        videos = videosList;
-        animateView(whileWaitingView, 2000, 500, INVISIBLE);
-        playVideo(0);
-      }
+          @Override
+          public void onSuccess(List<Video> videosList) {
+            videos = videosList;
+            animateView(whileWaitingView, 2000, 500, INVISIBLE);
+            playVideo(0);
+          }
 
-      @Override
-      public void onError(Throwable e) {
-        Timber.e(e.toString());
-      }
-    });
+          @Override
+          public void onError(Throwable e) {
+            Timber.e(e);
+          }
+        });
   }
 
   private void playVideo(int index) {

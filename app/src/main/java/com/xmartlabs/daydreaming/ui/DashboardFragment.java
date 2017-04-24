@@ -38,7 +38,6 @@ public class DashboardFragment extends BaseFragment {
   public static final float IMAGE_SCALING_VALUE = 1.3f;
   private static final int QUANTITY_OF_OPTIONS = 3;
   public static final int SCALING_ANIMATION_DURATION = 500;
-  public static final String XMARTLABS_URL = "http://www.xmartlabs.com";
 
   @BindView(R.id.bottom_black_diagonal_separator_view)
   DiagonalLayoutView bottomBlackView;
@@ -210,7 +209,7 @@ public class DashboardFragment extends BaseFragment {
   }
 
   private void openRateAppURL() {
-    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(XMARTLABS_URL));
+    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.xmartlabs_url)));
     startActivity(browserIntent);
   }
 

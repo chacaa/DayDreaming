@@ -53,4 +53,5 @@
     <string name="wrong_pass">Wrong password.</string>
     <string name="user">chaca</string>
     <string name="pass">chaca</string>
+    <string name="xmartlabs_url">http://www.xmartlabs.com</string>
 </resources>
