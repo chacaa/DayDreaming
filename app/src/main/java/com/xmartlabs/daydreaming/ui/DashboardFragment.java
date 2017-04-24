@@ -1,5 +1,7 @@
 package com.xmartlabs.daydreaming.ui;
 
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -15,6 +17,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.annimon.stream.Optional;
@@ -32,7 +35,9 @@ import butterknife.OnClick;
 public class DashboardFragment extends BaseFragment {
   @Dimension(unit = Dimension.PX)
   private static final int BLACK_LINE_HEIGHT = MetricsHelper.dpToPxInt(10);
-  private static final int QUANTITY_OF_OPTIONS = 3; //TODO change it for a list
+  public static final float IMAGE_SCALING_VALUE = 1.3f;
+  private static final int QUANTITY_OF_OPTIONS = 3;
+  public static final int SCALING_ANIMATION_DURATION = 500;
   public static final String XMARTLABS_URL = "http://www.xmartlabs.com";
 
   @BindView(R.id.bottom_black_diagonal_separator_view)
@@ -67,7 +72,10 @@ public class DashboardFragment extends BaseFragment {
 
   @OnClick(R.id.custom_dashboard_option_view)
   void onClickedCustom() {
+    setupAnimator(customOptionView.getImageView());
     customOptionView.setTextColor(R.color.white);
+    trendingOptionView.setScaleX(1.0f);
+    trendingOptionView.setScaleY(1.0f);
     Intent intent = Henson.with(getContext())
         .gotoCustomScreenActivity()
         .build();
@@ -76,6 +84,7 @@ public class DashboardFragment extends BaseFragment {
 
   @OnClick(R.id.trending_dashboard_option_view)
   void onClickedTrending() {
+    setupAnimator(trendingOptionView.getImageView());
     trendingOptionView.setTextColor(R.color.white);
     Intent intent = Henson.with(getContext())
         .gotoTrendingScreenActivity()
@@ -85,14 +94,16 @@ public class DashboardFragment extends BaseFragment {
 
   @OnClick(R.id.random_dashboard_option_view)
   void onClickedRandom() {
+    setupAnimator(randomOptionView.getImageView());
     randomOptionView.setTextColor(R.color.white);
     Intent intent = Henson.with(getContext())
         .gotoVideoActivity()
+        .image(R.drawable.home_random)
         .build();
     getContext().startActivity(intent);
   }
 
-  private void setUpView(View view) {
+  private void setUpView(@NonNull View view) {
     view.post(() -> {
       if (isAdded()) {
         @Dimension(unit = Dimension.PX)
@@ -199,20 +210,19 @@ public class DashboardFragment extends BaseFragment {
   }
 
   private void openRateAppURL() {
-    //TODO change the url to the google play app's url
     Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(XMARTLABS_URL));
     startActivity(browserIntent);
   }
 
-  //TODO change the animation. It will be used later.
-//  private void setupAnimator(DiagonalLayout diagonalLayout, int duration) {
-//    final LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) diagonalLayout.getLayoutParams();
-//    ValueAnimator animator = ValueAnimator.ofInt(params.bottomMargin, 25);//TODO calculate the value dynamically
-//    animator.addUpdateListener(valueAnimator -> {
-//      params.bottomMargin = (Integer) valueAnimator.getAnimatedValue();
-//      diagonalLayout.requestLayout();
-//    });
-//    animator.setDuration(duration);
-//    animator.start();
-//  }
+  private void setupAnimator(@NonNull ImageView view) {
+    ObjectAnimator scaleX = ObjectAnimator.ofFloat(view, "scaleX", IMAGE_SCALING_VALUE);
+    ObjectAnimator scaleY = ObjectAnimator.ofFloat(view, "scaleY", IMAGE_SCALING_VALUE);
+    scaleX.setDuration(SCALING_ANIMATION_DURATION);
+    scaleY.setDuration(SCALING_ANIMATION_DURATION);
+
+    AnimatorSet scale = new AnimatorSet();
+    scale.play(scaleX).with(scaleY);
+
+    scale.start();
+  }
 }

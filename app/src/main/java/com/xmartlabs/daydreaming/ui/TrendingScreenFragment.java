@@ -1,5 +1,8 @@
 package com.xmartlabs.daydreaming.ui;
 
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Dimension;
 import android.support.annotation.LayoutRes;
@@ -8,6 +11,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 
@@ -21,6 +25,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.BindViews;
+import butterknife.OnClick;
 
 /**
  * Created by chaca on 4/13/17.
@@ -29,7 +34,9 @@ import butterknife.BindViews;
 public class TrendingScreenFragment extends BaseFragment {
   @Dimension(unit = Dimension.PX)
   private static final int BLACK_LINE_HEIGHT = MetricsHelper.dpToPxInt(3);
-  private static final int QUANTITY_OF_OPTIONS = 3; //TODO change it for a list
+  public static final float IMAGE_SCALING_VALUE = 1.3f;
+  private static final int QUANTITY_OF_OPTIONS = 3;
+  public static final int SCALING_ANIMATION_DURATION = 500;
 
   @BindView(R.id.animals_option_view)
   DiagonalLayoutView animalsOptionView;
@@ -64,6 +71,87 @@ public class TrendingScreenFragment extends BaseFragment {
     super.onViewCreated(view, savedInstanceState);
     setUpView(view);
     setupToolbar();
+  }
+
+  @OnClick(R.id.art_option_view)
+  void onClickedArtOptionButton() {
+    setupAnimator(artOptionView.getImageView());
+    Intent intent = Henson.with(getContext())
+        .gotoVideoActivity()
+        .image(R.drawable.art)
+        .theme(getString(R.string.art))
+        .type(getString(R.string.chiil))
+        .build();
+    getContext().startActivity(intent);
+  }
+
+  @OnClick(R.id.nature_option_view)
+  void onClickedNatureOptionButton() {
+    setupAnimator(natureOptionView.getImageView());
+    Intent intent = Henson.with(getContext())
+        .gotoVideoActivity()
+        .image(R.drawable.nature)
+        .theme(getString(R.string.nature))
+        .type(getString(R.string.neutral))
+        .build();
+    getContext().startActivity(intent);
+  }
+
+  @OnClick(R.id.travel_option_view)
+  void onClickedTravelOptionButton() {
+    setupAnimator(travelOptionView.getImageView());
+    Intent intent = Henson.with(getContext())
+        .gotoVideoActivity()
+        .image(R.drawable.traveling)
+        .theme(getString(R.string.travel))
+        .type(getString(R.string.energetic))
+        .build();
+    getContext().startActivity(intent);
+  }
+
+  @OnClick(R.id.animals_option_view)
+  void onClickedAnimalsOptionButton() {
+    setupAnimator(animalsOptionView.getImageView());
+    Intent intent = Henson.with(getContext())
+        .gotoVideoActivity()
+        .image(R.drawable.animals)
+        .theme(getString(R.string.animals))
+        .type(getString(R.string.chiil))
+        .build();
+    getContext().startActivity(intent);
+  }
+
+  @OnClick(R.id.sports_option_view)
+  void onClickedSportsOptionButton() {
+    setupAnimator(sportsOptionView.getImageView());
+    Intent intent = Henson.with(getContext())
+        .gotoVideoActivity()
+        .image(R.drawable.sports)
+        .theme(getString(R.string.sports))
+        .type(getString(R.string.neutral))
+        .build();
+    getContext().startActivity(intent);
+  }
+
+  @OnClick(R.id.food_option_view)
+  void onClickedFoodOptionButton() {
+    setupAnimator(foodOptionView.getImageView());
+    Intent intent = Henson.with(getContext())
+        .gotoVideoActivity()
+        .image(R.drawable.food)
+        .theme(getString(R.string.food))
+        .type(getString(R.string.energetic))
+        .build();
+    getContext().startActivity(intent);
+  }
+
+  @OnClick(R.id.bottom_gray_diagonal_view)
+  void onClickedRandomOptionButton() {
+    Intent intent = Henson.with(getContext())
+        .gotoVideoActivity()
+        .image(R.drawable.home_random)
+        .build();
+    getContext().startActivity(intent);
   }
 
   private void setUpView(View view) {
@@ -116,7 +204,7 @@ public class TrendingScreenFragment extends BaseFragment {
     diagonalLayout.requestLayout();
   }
 
-  private void setupOption(DiagonalLayoutView diagonalLayoutView) {
+  private void setupOption(@NonNull DiagonalLayoutView diagonalLayoutView) {
     diagonalLayoutView.setTextColor(R.color.white);
     diagonalLayoutView.showSubtitle();
     diagonalLayoutView.setTextSize(14);
@@ -131,5 +219,17 @@ public class TrendingScreenFragment extends BaseFragment {
           actionBar.setDisplayHomeAsUpEnabled(true);
           actionBar.setHomeAsUpIndicator(R.drawable.ic_arrow_back_white_24dp);
         });
+  }
+
+  private void setupAnimator(@NonNull ImageView view) {
+    ObjectAnimator scaleX = ObjectAnimator.ofFloat(view, "scaleX", IMAGE_SCALING_VALUE);
+    ObjectAnimator scaleY = ObjectAnimator.ofFloat(view, "scaleY", IMAGE_SCALING_VALUE);
+    scaleX.setDuration(SCALING_ANIMATION_DURATION);
+    scaleY.setDuration(SCALING_ANIMATION_DURATION);
+
+    AnimatorSet scale = new AnimatorSet();
+    scale.play(scaleX).with(scaleY);
+
+    scale.start();
   }
 }

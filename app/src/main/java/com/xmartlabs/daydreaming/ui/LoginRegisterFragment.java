@@ -25,7 +25,7 @@ import butterknife.OnClick;
  * Created by chaca on 4/12/17.
  */
 @FragmentWithArgs
-public class LoginRegisterFragment extends BaseFragment{
+public class LoginRegisterFragment extends BaseFragment {
   @BindView(R.id.background_video_view)
   VideoView backgroundVideoView;
   @BindView(R.id.create_login_textview)
@@ -66,10 +66,12 @@ public class LoginRegisterFragment extends BaseFragment{
   private void setupErrorFieldsAsInvisible() {
     passwordErrorView.setVisibility(View.GONE);
     usernameErrorView.setVisibility(View.GONE);
+    errorTextView.setVisibility(View.GONE);
   }
 
   @OnClick(R.id.register_text_view)
   void onClickedRegister() {
+    setupErrorFieldsAsInvisible();
     registerTextView.setTextColor(getColor(R.color.pale_teal));
     loginTextView.setTextColor(getColor(R.color.white));
     createLoginTextView.setText(getString(R.string.create_user));
@@ -78,6 +80,7 @@ public class LoginRegisterFragment extends BaseFragment{
 
   @OnClick(R.id.login_text_view)
   void onClickedLogin() {
+    setupErrorFieldsAsInvisible();
     registerTextView.setTextColor(getColor(R.color.white));
     loginTextView.setTextColor(getColor(R.color.pale_teal));
     createLoginTextView.setText(getString(R.string.sign_in));
@@ -86,16 +89,29 @@ public class LoginRegisterFragment extends BaseFragment{
 
   @OnClick(R.id.create_login_textview)
   void onClickedCreateLogin() {
+    setupErrorFieldsAsInvisible();
     //TODO create user and login user
     if (isRegisterSelected) {
       if (passwordFieldView.getText().toString().length() < 5) {
         passwordErrorView.setVisibility(View.VISIBLE);
+        errorTextView.setVisibility(View.VISIBLE);
         errorTextView.setText(getResources().getString(R.string.error_hint_sign_up));
+      } else {
+        getActivity().finish();
       }
     } else {
-      if (!(usernameFieldView.getText().toString().toLowerCase()).equals("santi")){
+      if (!(usernameFieldView.getText().toString().toLowerCase()).equals("santi")) {
         usernameErrorView.setVisibility(View.VISIBLE);
-        errorTextView.setText("Wrong user account"); //TODO change this for the real error message
+        errorTextView.setVisibility(View.VISIBLE);
+        errorTextView.setText(getString(R.string.wrong_user));
+      } else {
+        if (!(passwordFieldView.getText().toString().toLowerCase()).equals("santi")) {
+          passwordErrorView.setVisibility(View.VISIBLE);
+          errorTextView.setVisibility(View.VISIBLE);
+          errorTextView.setText(getString(R.string.wrong_pass));
+        } else {
+          getActivity().finish();
+        }
       }
     }
   }

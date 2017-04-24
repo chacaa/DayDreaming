@@ -116,4 +116,8 @@ public class DiagonalLayoutView extends LinearLayout {
     diagonalSeparator.setLayoutParams(layoutParams);
     diagonalSeparator.requestLayout();
   }
+
+  public ImageView getImageView() {
+    return imageView;
+  }
 }

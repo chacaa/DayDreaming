@@ -1,12 +1,14 @@
 package com.xmartlabs.daydreaming.ui;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.media.AudioManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.LayoutRes;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatSeekBar;
@@ -15,6 +17,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
+import android.widget.TextView;
 import android.widget.VideoView;
 
 import com.annimon.stream.Optional;
@@ -31,7 +34,6 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import io.reactivex.Single;
 import io.reactivex.SingleObserver;
 import io.reactivex.disposables.Disposable;
 import timber.log.Timber;
@@ -42,10 +44,14 @@ import timber.log.Timber;
 @FragmentWithArgs
 public class VideoFragment extends BaseFragment {
   public static final int DELAY_IN_MS = 100;
+  public static final float INVISIBLE = 0.0001f;
 
   @Inject
   VideoController videoController;
 
+  @Arg
+  @DrawableRes
+  int image;
   @Arg(required = false)
   String theme;
   @Arg(required = false)
@@ -53,16 +59,22 @@ public class VideoFragment extends BaseFragment {
 
   @BindView(R.id.mute_button)
   ImageView muteButtonView;
+  @BindView(R.id.image_while_waiting)
+  ImageView imageWhileWaitingView;
   @BindView(R.id.play_pause_button)
   ImageView playPauseButtonView;
-  @BindView(R.id.video_progress_bar)
-  AppCompatSeekBar videoProgressSeekBarView;
+  @BindView(R.id.text_while_waiting)
+  TextView textView;
   @BindView(R.id.toolbar)
   Toolbar toolbarView;
   @BindView(R.id.video_control_view)
   RelativeLayout videoControllersView;
   @BindView(R.id.video_player_view)
   VideoView videoPlayerView;
+  @BindView(R.id.video_progress_bar)
+  AppCompatSeekBar videoProgressSeekBarView;
+  @BindView(R.id.while_waiting_view)
+  RelativeLayout whileWaitingView;
 
   private final Handler handler = new Handler();
   private final Runnable updateTimeTask = new Runnable() {
@@ -91,29 +103,14 @@ public class VideoFragment extends BaseFragment {
     setupToolbar();
     getVideos();
     setupVolumeImage();
+    setTextFont();
+    setupWhileWaitingImage();
   }
 
-//TODO see if i can make the toolbar hide and show by touching the screen, it is working sometimes but needs to be fix
-//  @BindView(R.id.main_appbar)
-//  AppBarLayout appBarLayout;
-//
-//  private boolean isHidden = true;
-//
-//  @OnTouch(R.id.video_player_view)
-//  boolean onTouchedScreen() {
-//    AppCompatActivity activity = (AppCompatActivity) getActivity();
-//    if (isHidden) {
-//      Optional.ofNullable(activity.getSupportActionBar())
-//          .ifPresent(ActionBar::show);
-//      appBarLayout.setVisibility(View.VISIBLE);
-//    } else {
-//      Optional.ofNullable(activity.getSupportActionBar())
-//          .ifPresent(ActionBar::hide);
-//      appBarLayout.setVisibility(View.GONE);
-//    }
-//    isHidden = !isHidden;
-//    return true;
-//  }
+  private void setupWhileWaitingImage() {
+    //noinspection deprecation
+    imageWhileWaitingView.setImageDrawable(getResources().getDrawable(image));
+  }
 
   @OnClick(R.id.play_pause_button)
   void onClickedPauseButton() {
@@ -146,12 +143,14 @@ public class VideoFragment extends BaseFragment {
 
   @OnClick(R.id.next_button)
   void onClickedNextButton() {
-    playVideo(currentIndex == videos.size() - 1 ? 0 : currentIndex++);
+    currentIndex++;
+    playVideo(currentIndex > videos.size() - 1 ? 0 : currentIndex);
   }
 
   @OnClick(R.id.prev_button)
   void onClickedPrevButton() {
-    playVideo(currentIndex == 0 ? videos.size() - 1 : currentIndex--);
+    currentIndex--;
+    playVideo(currentIndex < 0 ? videos.size() - 1 : currentIndex);
   }
 
   private void setPlayPauseButtonImage(@DrawableRes int image) {
@@ -214,13 +213,13 @@ public class VideoFragment extends BaseFragment {
     setVolumeButtonImage();
   }
 
-  private void unmute(AudioManager audioManager) {
+  private void unmute(@NonNull AudioManager audioManager) {
     setVolume(audioManager, volume == 0 ? 100 : volume);
     //noinspection deprecation
     muteButtonView.setImageDrawable(getResources().getDrawable(R.drawable.sound_off));
   }
 
-  private void mute(AudioManager audioManager) {
+  private void mute(@NonNull AudioManager audioManager) {
     volume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
     setVolume(audioManager, 0);
     //noinspection deprecation
@@ -232,7 +231,7 @@ public class VideoFragment extends BaseFragment {
     muteButtonView.setImageDrawable(getResources().getDrawable(volume > 0 ? R.drawable.sound_off : R.drawable.sound_on));
   }
 
-  private void setVolume(AudioManager audioManager, int volume) {
+  private void setVolume(@NonNull AudioManager audioManager, int volume) {
     audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, volume, 0);
   }
 
@@ -245,6 +244,7 @@ public class VideoFragment extends BaseFragment {
       @Override
       public void onSuccess(List<Video> videosList) {
         videos = videosList;
+        animateView(whileWaitingView, 2000, 500, INVISIBLE);
         playVideo(0);
       }
 
@@ -267,5 +267,18 @@ public class VideoFragment extends BaseFragment {
     if (!videos.isEmpty()) {
       playVideo(currentIndex);
     }
+  }
+
+  private void animateView(@NonNull View view, long durationInMs, long delayInMs, float alpha) {
+    view.animate()
+        .setDuration(durationInMs)
+        .alpha(alpha)
+        .setStartDelay(delayInMs)
+        .start();
+  }
+
+  private void setTextFont() {
+    Typeface font = Typeface.createFromAsset(getActivity().getAssets(), "LibreBaskerville-Italic.otf");
+    textView.setTypeface(font);
   }
 }
