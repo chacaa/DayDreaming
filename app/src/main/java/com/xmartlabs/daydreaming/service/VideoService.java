@@ -12,9 +12,11 @@ import retrofit2.http.Query;
  * Created by chaca on 4/21/17.
  */
 public interface VideoService {
-  @GET("videos")
+  String VIDEOS = "videos";
+
+  @GET(VIDEOS)
   Single<List<Video>> getVideosByTheme(@Query("theme") String theme);
 
-  @GET("Videos")
+  @GET(VIDEOS)
   Single<List<Video>> getVideosByType(@Query("type") String type);
 }

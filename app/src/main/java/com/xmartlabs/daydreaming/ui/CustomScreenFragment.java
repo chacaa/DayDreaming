@@ -4,7 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.LayoutRes;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -24,7 +26,9 @@ import butterknife.OnClick;
  */
 @FragmentWithArgs
 public class CustomScreenFragment extends BaseFragment {
-  public static final int MAX = 100;
+  private static final int MAX_SEEKBAR_PROGRESS_VALUE = 100;
+  private static final int FIRST_THIRD_VALUE = MAX_SEEKBAR_PROGRESS_VALUE / 3;
+  private static final int SECOND_THIRD_VALUE = MAX_SEEKBAR_PROGRESS_VALUE * 2 / 3;
 
   @BindView(R.id.animals_text_view)
   TextView animalsTextView;
@@ -60,79 +64,59 @@ public class CustomScreenFragment extends BaseFragment {
   public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
     setupToolbar();
-    moodSeekBarView.setMax(MAX);
+    moodSeekBarView.setMax(MAX_SEEKBAR_PROGRESS_VALUE);
   }
 
   @OnClick(R.id.art_text_view)
   void onClickedArtOption() {
-    theme = getString(R.string.art);
-    artTextView.setTextColor(getColor(R.color.white));
-    natureTextView.setTextColor(getColor(R.color.warm_grey));
-    travelTextView.setTextColor(getColor(R.color.warm_grey));
-    animalsTextView.setTextColor(getColor(R.color.warm_grey));
-    sportsTextView.setTextColor(getColor(R.color.warm_grey));
-    foodTextView.setTextColor(getColor(R.color.warm_grey));
+    setOptionAsSelected(R.string.art, artTextView);
   }
 
   @OnClick(R.id.nature_text_view)
   void onClickedNatureOption() {
-    theme = getString(R.string.nature);
-    artTextView.setTextColor(getColor(R.color.warm_grey));
-    natureTextView.setTextColor(getColor(R.color.white));
-    travelTextView.setTextColor(getColor(R.color.warm_grey));
-    animalsTextView.setTextColor(getColor(R.color.warm_grey));
-    sportsTextView.setTextColor(getColor(R.color.warm_grey));
-    foodTextView.setTextColor(getColor(R.color.warm_grey));
+    setOptionAsSelected(R.string.nature, natureTextView);
   }
 
   @OnClick(R.id.travel_text_view)
   void onClickedTravelOption() {
-    theme = getString(R.string.travel);
-    artTextView.setTextColor(getColor(R.color.warm_grey));
-    natureTextView.setTextColor(getColor(R.color.warm_grey));
-    travelTextView.setTextColor(getColor(R.color.white));
-    animalsTextView.setTextColor(getColor(R.color.warm_grey));
-    sportsTextView.setTextColor(getColor(R.color.warm_grey));
-    foodTextView.setTextColor(getColor(R.color.warm_grey));
+    setOptionAsSelected(R.string.travel, travelTextView);
   }
 
   @OnClick(R.id.animals_text_view)
   void onClickedAnimalsOption() {
-    theme = getString(R.string.animals);
-    artTextView.setTextColor(getColor(R.color.warm_grey));
-    natureTextView.setTextColor(getColor(R.color.warm_grey));
-    travelTextView.setTextColor(getColor(R.color.warm_grey));
-    animalsTextView.setTextColor(getColor(R.color.white));
-    sportsTextView.setTextColor(getColor(R.color.warm_grey));
-    foodTextView.setTextColor(getColor(R.color.warm_grey));
+    setOptionAsSelected(R.string.animals, animalsTextView);
   }
 
   @OnClick(R.id.sports_text_view)
   void onClickedSportsOption() {
-    theme = getString(R.string.sports);
-    artTextView.setTextColor(getColor(R.color.warm_grey));
-    natureTextView.setTextColor(getColor(R.color.warm_grey));
-    travelTextView.setTextColor(getColor(R.color.warm_grey));
-    animalsTextView.setTextColor(getColor(R.color.warm_grey));
-    sportsTextView.setTextColor(getColor(R.color.white));
-    foodTextView.setTextColor(getColor(R.color.warm_grey));
+    setOptionAsSelected(R.string.sports, sportsTextView);
   }
 
   @OnClick(R.id.food_text_view)
   void onClickedFoodOption() {
-    theme = getString(R.string.food);
+    setOptionAsSelected(R.string.food, foodTextView);
+  }
+
+  private void setOptionAsSelected(@StringRes int text, @NonNull TextView textView) {
+    theme = getString(text);
+    paintAllAsUnselected();
+    textView.setTextColor(getColor(R.color.white));
+  }
+
+  private void paintAllAsUnselected() {
     artTextView.setTextColor(getColor(R.color.warm_grey));
     natureTextView.setTextColor(getColor(R.color.warm_grey));
     travelTextView.setTextColor(getColor(R.color.warm_grey));
     animalsTextView.setTextColor(getColor(R.color.warm_grey));
     sportsTextView.setTextColor(getColor(R.color.warm_grey));
-    foodTextView.setTextColor(getColor(R.color.white));
+    foodTextView.setTextColor(getColor(R.color.warm_grey));
   }
 
   @OnClick(R.id.start_daydreaming_linearlayout)
   void onClickedStartDreaming() {
     //noinspection deprecation
-    startDaydreamingView.setBackground(getResources().getDrawable(R.drawable.double_square_shape_2_selected));
+    startDaydreamingView
+        .setBackground(getResources().getDrawable(R.drawable.double_square_shape_2_selected));
     startDaydreamingTextView.setTextColor(getColor(R.color.white));
     reviewProgressAndSetType();
     callVideoActivity(R.drawable.home_custom);
@@ -150,14 +134,11 @@ public class CustomScreenFragment extends BaseFragment {
 
   private void reviewProgressAndSetType() {
     int progress = moodSeekBarView.getProgress();
-    if (progress < 34) {
+    if (progress < FIRST_THIRD_VALUE) {
       type = getString(R.string.chiil);
     } else {
-      if (progress >= 34 && progress < 67) {
-        type = getString(R.string.neutral);
-      } else {
-        type = getString(R.string.energetic);
-      }
+      type = progress < SECOND_THIRD_VALUE ? getString(R.string.neutral) :
+          getString(R.string.energetic);
     }
   }
 
@@ -169,5 +150,16 @@ public class CustomScreenFragment extends BaseFragment {
           actionBar.setDisplayHomeAsUpEnabled(true);
           actionBar.setHomeAsUpIndicator(R.drawable.ic_arrow_back_white_24dp);
         });
+  }
+
+  @Override
+  public void onResume() {
+    super.onResume();
+    paintAllAsUnselected();
+    removeSeekBarProgress();
+  }
+
+  private void removeSeekBarProgress() {
+    moodSeekBarView.setProgress(0);
   }
 }
