@@ -23,19 +23,26 @@ import android.widget.VideoView;
 import com.annimon.stream.Optional;
 import com.hannesdorfmann.fragmentargs.annotation.Arg;
 import com.hannesdorfmann.fragmentargs.annotation.FragmentWithArgs;
+import com.trello.rxlifecycle2.RxLifecycle;
+import com.trello.rxlifecycle2.android.FragmentEvent;
 import com.xmartlabs.daydreaming.R;
 import com.xmartlabs.daydreaming.controller.VideoController;
 import com.xmartlabs.daydreaming.model.Video;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+
+import io.reactivex.Flowable;
 import io.reactivex.SingleObserver;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
+
 import timber.log.Timber;
 
 /**
@@ -51,7 +58,7 @@ public class VideoFragment extends BaseFragment {
 
   @Arg
   @DrawableRes
-  int image;
+  Integer image;
   @Arg(required = false)
   String theme;
   @Arg(required = false)
@@ -76,18 +83,7 @@ public class VideoFragment extends BaseFragment {
   @BindView(R.id.while_waiting_view)
   RelativeLayout whileWaitingView;
 
-  private final Handler handler = new Handler();
   private boolean nextButtonWasClicked = false;
-  private boolean prevButtonWasClicked = false;
-  private final Runnable updateTimeTask = new Runnable() {
-    public void run() {
-      if (isAdded()) {
-        videoProgressSeekBarView.setProgress(videoPlayerView.getCurrentPosition());
-        videoProgressSeekBarView.setMax(videoPlayerView.getDuration());
-        handler.postDelayed(this, DELAY_IN_MS);
-      }
-    }
-  };
   private List<Video> videos = Collections.emptyList();
   private int volume;
   private Video video;
@@ -107,6 +103,18 @@ public class VideoFragment extends BaseFragment {
     setupVolumeImage();
     setTextFont();
     setupWhileWaitingImage();
+    setupProgressBarTracker();
+  }
+
+  private void setupProgressBarTracker() {
+    Flowable.interval(DELAY_IN_MS, TimeUnit.MILLISECONDS)
+        .onBackpressureDrop()
+        .observeOn(AndroidSchedulers.mainThread())
+        .compose(RxLifecycle.bindUntilEvent(lifecycle(), FragmentEvent.DESTROY_VIEW))
+        .subscribe(aLong -> {
+          videoProgressSeekBarView.setProgress(videoPlayerView.getCurrentPosition());
+          videoProgressSeekBarView.setMax(videoPlayerView.getDuration());
+        });
   }
 
   private void setupWhileWaitingImage() {
@@ -153,7 +161,7 @@ public class VideoFragment extends BaseFragment {
   @OnClick(R.id.prev_button)
   void onClickedPrevButton() {
     currentIndex--;
-    prevButtonWasClicked = true;
+    nextButtonWasClicked = false;
     playVideo(getVideoIndex());
   }
 
@@ -164,13 +172,12 @@ public class VideoFragment extends BaseFragment {
     } else {
       index = currentIndex < 0 ? videos.size() - 1 : currentIndex;
     }
-    setNextAndPrevWasClickedAsFalse();
+    setNextButtonWasClickedAsFalse();
     return index;
   }
 
-  private void setNextAndPrevWasClickedAsFalse() {
+  private void setNextButtonWasClickedAsFalse() {
     nextButtonWasClicked = false;
-    prevButtonWasClicked = false;
   }
 
   private void setPlayPauseButtonImage(@DrawableRes int image) {
@@ -191,7 +198,6 @@ public class VideoFragment extends BaseFragment {
   }
 
   private void setupVideoProgressBar() {
-    updateProgressBar();
     videoProgressSeekBarView.setOnSeekBarChangeListener(
         new SeekBar.OnSeekBarChangeListener() {
           @Override
@@ -221,10 +227,6 @@ public class VideoFragment extends BaseFragment {
           actionBar.setHomeAsUpIndicator(R.drawable.ic_arrow_back_white_24dp);
           actionBar.setDisplayShowTitleEnabled(false);
         });
-  }
-
-  private void updateProgressBar() {
-    handler.postDelayed(updateTimeTask, 100);
   }
 
   private void setupVolumeImage() {

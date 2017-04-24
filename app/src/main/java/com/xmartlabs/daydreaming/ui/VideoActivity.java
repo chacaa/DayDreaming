@@ -14,7 +14,7 @@ public class VideoActivity extends SingleFragmentActivity {
   @DrawableRes
   @NonNull
   @InjectExtra
-  int image;
+  Integer image;
   @Nullable
   @InjectExtra
   String theme;
