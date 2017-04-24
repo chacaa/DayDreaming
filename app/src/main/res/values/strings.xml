@@ -19,7 +19,7 @@
     <string name="about">ABOUT</string>
     <string name="login">LOG IN</string>
     <string name="music_mood">Music Mood</string>
-    <string name="chiil">Chill</string>
+    <string name="chill">Chill</string>
     <string name="energetic">Energetic</string>
     <string name="neutral">Neutral</string>
     <string name="video_theme">Video Theme</string>
@@ -44,7 +44,7 @@
     <string name="password">Password</string>
     <string name="register">Register</string>
     <string name="sign_in">Sign in</string>
-    <string name="error_hint_sign_up">Password must be at least 5 digit long.</string>
+    <string name="password_length_error">Password must be at least 5 digit long.</string>
     <string name="rate_app_now">Do you want to rate our app now?</string>
     <string name="rate_button">Rate</string>
     <string name="is_loading">Your DayDream is loading&#8230;</string>

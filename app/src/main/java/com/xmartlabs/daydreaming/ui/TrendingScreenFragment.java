@@ -80,7 +80,7 @@ public class TrendingScreenFragment extends BaseFragment {
         .gotoVideoActivity()
         .image(R.drawable.art)
         .theme(getString(R.string.art))
-        .type(getString(R.string.chiil))
+        .type(getString(R.string.chill))
         .build();
     startActivity(intent);
   }
@@ -116,7 +116,7 @@ public class TrendingScreenFragment extends BaseFragment {
         .gotoVideoActivity()
         .image(R.drawable.animals)
         .theme(getString(R.string.animals))
-        .type(getString(R.string.chiil))
+        .type(getString(R.string.chill))
         .build();
     startActivity(intent);
   }

@@ -200,7 +200,7 @@
                     android:layout_marginTop="10dp"
                     android:textColor="@color/salmon"
                     android:textSize="14sp"
-                    tools:text="@string/error_hint_sign_up"
+                    tools:text="@string/password_length_error"
                     />
 
             </LinearLayout>

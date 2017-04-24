@@ -27,11 +27,13 @@ import butterknife.OnClick;
  */
 @FragmentWithArgs
 public class LoginRegisterFragment extends BaseFragment {
-  private static final int MAX_PASSWORD_LENGTH = 5;
+  private static final int GONE = View.GONE;
+  private static final int MIN_PASSWORD_LENGTH = 5;
   @StringRes
   private static final int PASSWORD = R.string.user;
   @StringRes
   private static final int USER = R.string.pass;
+  private static final int VISIBLE = View.VISIBLE;
 
   @BindView(R.id.background_video_view)
   VideoView backgroundVideoView;
@@ -98,7 +100,6 @@ public class LoginRegisterFragment extends BaseFragment {
   @OnClick(R.id.create_login_textview)
   void onClickedCreateLogin() {
     setupErrorFieldsAsInvisible();
-    //TODO create user and login user
     if (isRegisterSelected) {
       checkFieldsDuringRegistration();
     } else {
@@ -107,26 +108,30 @@ public class LoginRegisterFragment extends BaseFragment {
   }
 
   private void checkFieldsDuringLogin() {
+    //TODO make the validation through an authentication server
     if (!(usernameFieldView.getText().toString().toLowerCase()).equals(getString(USER))) {
-      usernameErrorView.setVisibility(View.VISIBLE);
-      errorTextView.setVisibility(View.VISIBLE);
-      errorTextView.setText(getString(R.string.wrong_user));
+      setupErrorNotification(VISIBLE, GONE, R.string.wrong_user);
     } else {
       if (!(passwordFieldView.getText().toString().toLowerCase()).equals(getString(PASSWORD))) {
-        passwordErrorView.setVisibility(View.VISIBLE);
-        errorTextView.setVisibility(View.VISIBLE);
-        errorTextView.setText(getString(R.string.wrong_pass));
+        setupErrorNotification(GONE, VISIBLE, R.string.wrong_pass);
       } else {
         getActivity().finish();
       }
     }
   }
 
+  private void setupErrorNotification(int userErrorVisibility, int passErrorVisibility,
+                                      @StringRes int errorText) {
+    usernameErrorView.setVisibility(userErrorVisibility);
+    passwordErrorView.setVisibility(passErrorVisibility);
+    errorTextView.setVisibility(View.VISIBLE);
+    errorTextView.setText(getString(errorText));
+  }
+
   private void checkFieldsDuringRegistration() {
-    if (passwordFieldView.getText().toString().length() < MAX_PASSWORD_LENGTH) {
-      passwordErrorView.setVisibility(View.VISIBLE);
-      errorTextView.setVisibility(View.VISIBLE);
-      errorTextView.setText(getResources().getString(R.string.error_hint_sign_up));
+    //TODO establish the constrains for the username and the password and create the user in the server
+    if (passwordFieldView.getText().toString().length() < MIN_PASSWORD_LENGTH) {
+      setupErrorNotification(GONE, VISIBLE, R.string.password_length_error);
     } else {
       getActivity().finish();
     }

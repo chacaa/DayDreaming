@@ -1,6 +1,7 @@
 package com.xmartlabs.daydreaming.ui;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.LayoutRes;
@@ -53,6 +54,7 @@ public class CustomScreenFragment extends BaseFragment {
 
   private String theme;
   private String type;
+  private int warmGreyColor = getColor(R.color.warm_grey);
 
   @LayoutRes
   @Override
@@ -104,12 +106,12 @@ public class CustomScreenFragment extends BaseFragment {
   }
 
   private void paintAllAsUnselected() {
-    artTextView.setTextColor(getColor(R.color.warm_grey));
-    natureTextView.setTextColor(getColor(R.color.warm_grey));
-    travelTextView.setTextColor(getColor(R.color.warm_grey));
-    animalsTextView.setTextColor(getColor(R.color.warm_grey));
-    sportsTextView.setTextColor(getColor(R.color.warm_grey));
-    foodTextView.setTextColor(getColor(R.color.warm_grey));
+    artTextView.setTextColor(warmGreyColor);
+    natureTextView.setTextColor(warmGreyColor);
+    travelTextView.setTextColor(warmGreyColor);
+    animalsTextView.setTextColor(warmGreyColor);
+    sportsTextView.setTextColor(warmGreyColor);
+    foodTextView.setTextColor(warmGreyColor);
   }
 
   @OnClick(R.id.start_daydreaming_linearlayout)
@@ -135,7 +137,7 @@ public class CustomScreenFragment extends BaseFragment {
   private void reviewProgressAndSetType() {
     int progress = moodSeekBarView.getProgress();
     if (progress < FIRST_THIRD_VALUE) {
-      type = getString(R.string.chiil);
+      type = getString(R.string.chill);
     } else {
       type = progress < SECOND_THIRD_VALUE ? getString(R.string.neutral) :
           getString(R.string.energetic);
