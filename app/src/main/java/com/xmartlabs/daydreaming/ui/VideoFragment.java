@@ -43,8 +43,8 @@ import timber.log.Timber;
  */
 @FragmentWithArgs
 public class VideoFragment extends BaseFragment {
-  public static final int DELAY_IN_MS = 100;
-  public static final float INVISIBLE = 0.0001f;
+  private static final int DELAY_IN_MS = 100;
+  private static final float INVISIBLE = 0.0001f;
 
   @Inject
   VideoController videoController;
@@ -77,6 +77,8 @@ public class VideoFragment extends BaseFragment {
   RelativeLayout whileWaitingView;
 
   private final Handler handler = new Handler();
+  private boolean nextButtonWasClicked = false;
+  private boolean prevButtonWasClicked = false;
   private final Runnable updateTimeTask = new Runnable() {
     public void run() {
       if (isAdded()) {
@@ -144,13 +146,31 @@ public class VideoFragment extends BaseFragment {
   @OnClick(R.id.next_button)
   void onClickedNextButton() {
     currentIndex++;
-    playVideo(currentIndex > videos.size() - 1 ? 0 : currentIndex);
+    nextButtonWasClicked = true;
+    playVideo(getVideoIndex());
   }
 
   @OnClick(R.id.prev_button)
   void onClickedPrevButton() {
     currentIndex--;
-    playVideo(currentIndex < 0 ? videos.size() - 1 : currentIndex);
+    prevButtonWasClicked = true;
+    playVideo(getVideoIndex());
+  }
+
+  private int getVideoIndex() {
+    int index;
+    if (nextButtonWasClicked) {
+      index = currentIndex > videos.size() - 1 ? 0 : currentIndex;
+    } else {
+      index = currentIndex < 0 ? videos.size() - 1 : currentIndex;
+    }
+    setNextAndPrevWasClickedAsFalse();
+    return index;
+  }
+
+  private void setNextAndPrevWasClickedAsFalse() {
+    nextButtonWasClicked = false;
+    prevButtonWasClicked = false;
   }
 
   private void setPlayPauseButtonImage(@DrawableRes int image) {

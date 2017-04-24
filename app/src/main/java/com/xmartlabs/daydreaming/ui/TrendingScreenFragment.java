@@ -82,7 +82,7 @@ public class TrendingScreenFragment extends BaseFragment {
         .theme(getString(R.string.art))
         .type(getString(R.string.chiil))
         .build();
-    getContext().startActivity(intent);
+    startActivity(intent);
   }
 
   @OnClick(R.id.nature_option_view)
@@ -94,7 +94,7 @@ public class TrendingScreenFragment extends BaseFragment {
         .theme(getString(R.string.nature))
         .type(getString(R.string.neutral))
         .build();
-    getContext().startActivity(intent);
+    startActivity(intent);
   }
 
   @OnClick(R.id.travel_option_view)
@@ -106,7 +106,7 @@ public class TrendingScreenFragment extends BaseFragment {
         .theme(getString(R.string.travel))
         .type(getString(R.string.energetic))
         .build();
-    getContext().startActivity(intent);
+    startActivity(intent);
   }
 
   @OnClick(R.id.animals_option_view)
@@ -118,7 +118,7 @@ public class TrendingScreenFragment extends BaseFragment {
         .theme(getString(R.string.animals))
         .type(getString(R.string.chiil))
         .build();
-    getContext().startActivity(intent);
+    startActivity(intent);
   }
 
   @OnClick(R.id.sports_option_view)
@@ -130,7 +130,7 @@ public class TrendingScreenFragment extends BaseFragment {
         .theme(getString(R.string.sports))
         .type(getString(R.string.neutral))
         .build();
-    getContext().startActivity(intent);
+    startActivity(intent);
   }
 
   @OnClick(R.id.food_option_view)
@@ -142,7 +142,7 @@ public class TrendingScreenFragment extends BaseFragment {
         .theme(getString(R.string.food))
         .type(getString(R.string.energetic))
         .build();
-    getContext().startActivity(intent);
+    startActivity(intent);
   }
 
   @OnClick(R.id.bottom_gray_diagonal_view)
@@ -151,7 +151,7 @@ public class TrendingScreenFragment extends BaseFragment {
         .gotoVideoActivity()
         .image(R.drawable.home_random)
         .build();
-    getContext().startActivity(intent);
+    startActivity(intent);
   }
 
   private void setUpView(View view) {
