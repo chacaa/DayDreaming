@@ -51,4 +51,6 @@
     <string name="on_boarding_text">The best video and music paired on the fly.</string>
     <string name="wrong_user">Wrong user account.</string>
     <string name="wrong_pass">Wrong password.</string>
+    <string name="user">chaca</string>
+    <string name="pass">chaca</string>
 </resources>

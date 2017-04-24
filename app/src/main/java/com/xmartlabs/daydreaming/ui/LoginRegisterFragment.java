@@ -4,6 +4,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -26,6 +27,12 @@ import butterknife.OnClick;
  */
 @FragmentWithArgs
 public class LoginRegisterFragment extends BaseFragment {
+  private static final int MAX_PASSWORD_LENGTH = 5;
+  @StringRes
+  private static final int PASSWORD = R.string.user;
+  @StringRes
+  private static final int USER = R.string.pass;
+
   @BindView(R.id.background_video_view)
   VideoView backgroundVideoView;
   @BindView(R.id.create_login_textview)
@@ -67,6 +74,7 @@ public class LoginRegisterFragment extends BaseFragment {
     passwordErrorView.setVisibility(View.GONE);
     usernameErrorView.setVisibility(View.GONE);
     errorTextView.setVisibility(View.GONE);
+
   }
 
   @OnClick(R.id.register_text_view)
@@ -92,27 +100,35 @@ public class LoginRegisterFragment extends BaseFragment {
     setupErrorFieldsAsInvisible();
     //TODO create user and login user
     if (isRegisterSelected) {
-      if (passwordFieldView.getText().toString().length() < 5) {
+      checkFieldsDuringRegistration();
+    } else {
+      checkFieldsDuringLogin();
+    }
+  }
+
+  private void checkFieldsDuringLogin() {
+    if (!(usernameFieldView.getText().toString().toLowerCase()).equals(getString(USER))) {
+      usernameErrorView.setVisibility(View.VISIBLE);
+      errorTextView.setVisibility(View.VISIBLE);
+      errorTextView.setText(getString(R.string.wrong_user));
+    } else {
+      if (!(passwordFieldView.getText().toString().toLowerCase()).equals(getString(PASSWORD))) {
         passwordErrorView.setVisibility(View.VISIBLE);
         errorTextView.setVisibility(View.VISIBLE);
-        errorTextView.setText(getResources().getString(R.string.error_hint_sign_up));
+        errorTextView.setText(getString(R.string.wrong_pass));
       } else {
         getActivity().finish();
       }
+    }
+  }
+
+  private void checkFieldsDuringRegistration() {
+    if (passwordFieldView.getText().toString().length() < MAX_PASSWORD_LENGTH) {
+      passwordErrorView.setVisibility(View.VISIBLE);
+      errorTextView.setVisibility(View.VISIBLE);
+      errorTextView.setText(getResources().getString(R.string.error_hint_sign_up));
     } else {
-      if (!(usernameFieldView.getText().toString().toLowerCase()).equals("santi")) {
-        usernameErrorView.setVisibility(View.VISIBLE);
-        errorTextView.setVisibility(View.VISIBLE);
-        errorTextView.setText(getString(R.string.wrong_user));
-      } else {
-        if (!(passwordFieldView.getText().toString().toLowerCase()).equals("santi")) {
-          passwordErrorView.setVisibility(View.VISIBLE);
-          errorTextView.setVisibility(View.VISIBLE);
-          errorTextView.setText(getString(R.string.wrong_pass));
-        } else {
-          getActivity().finish();
-        }
-      }
+      getActivity().finish();
     }
   }
 
