@@ -73,8 +73,6 @@ public class DashboardFragment extends BaseFragment {
   void onClickedCustom() {
     setupAnimator(customOptionView.getImageView());
     customOptionView.setTextColor(R.color.white);
-    trendingOptionView.setScaleX(1);
-    trendingOptionView.setScaleY(1);
     Intent intent = Henson.with(getContext())
         .gotoCustomScreenActivity()
         .build();
