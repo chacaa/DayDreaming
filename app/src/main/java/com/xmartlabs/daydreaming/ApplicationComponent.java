@@ -4,6 +4,7 @@ import com.xmartlabs.daydreaming.controller.AuthController;
 import com.xmartlabs.daydreaming.controller.Controller;
 import com.xmartlabs.daydreaming.controller.ServiceController;
 import com.xmartlabs.daydreaming.controller.SessionController;
+import com.xmartlabs.daydreaming.controller.VideoController;
 import com.xmartlabs.daydreaming.helper.DatabaseHelper;
 import com.xmartlabs.daydreaming.helper.GeneralErrorHelper;
 import com.xmartlabs.daydreaming.module.AndroidModule;
@@ -16,12 +17,14 @@ import com.xmartlabs.daydreaming.module.PicassoModule;
 import com.xmartlabs.daydreaming.module.ReceiverModule;
 import com.xmartlabs.daydreaming.module.RestServiceModule;
 import com.xmartlabs.daydreaming.module.SessionInterceptor;
+import com.xmartlabs.daydreaming.service.VideoService;
 import com.xmartlabs.daydreaming.ui.BaseActivity;
 import com.xmartlabs.daydreaming.ui.BaseAppCompatActivity;
 import com.xmartlabs.daydreaming.ui.BaseFragment;
 import com.xmartlabs.daydreaming.ui.MainActivity;
 import com.xmartlabs.daydreaming.ui.SingleFragmentActivity;
 import com.xmartlabs.daydreaming.ui.StartActivity;
+import com.xmartlabs.daydreaming.ui.VideoFragment;
 
 import javax.inject.Singleton;
 
@@ -50,12 +53,14 @@ public interface ApplicationComponent {
   void inject(StartActivity startActivity);
 
   void inject(BaseFragment baseFragment);
+  void inject(VideoFragment videoFragment);
 
   void inject(Controller controller);
   void inject(ServiceController serviceController);
 
   void inject(AuthController authController);
   void inject(SessionController sessionController);
+  void inject(VideoController videoController);
 
   void inject(SessionInterceptor sessionInterceptor);
 

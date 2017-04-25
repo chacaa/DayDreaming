@@ -6,6 +6,7 @@
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/black"
     android:fitsSystemWindows="true"
     tools:openDrawer="start"
     >
@@ -86,8 +87,8 @@
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:layout_gravity="top|center_horizontal"
-            android:src="@drawable/daydreaming_icon"
             android:layout_marginTop="60dp"
+            android:src="@drawable/daydreaming_icon"
             />
 
         <android.support.design.widget.NavigationView

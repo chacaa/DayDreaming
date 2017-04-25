@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name" translatable="false">Day Dreaming</string>
-    <string name="url_service" translatable="false">https://api.github.com/</string><!-- TODO -->
+    <string name="url_service" translatable="false">http://10.0.2.2:3000/</string>
 
     <string name="loading">Loading…</string>
     <string name="message_error_service_call">Oops! Something went wrong, please try again.</string>
@@ -19,8 +19,9 @@
     <string name="about">ABOUT</string>
     <string name="login">LOG IN</string>
     <string name="music_mood">Music Mood</string>
-    <string name="chiil">Chill</string>
+    <string name="chill">Chill</string>
     <string name="energetic">Energetic</string>
+    <string name="neutral">Neutral</string>
     <string name="video_theme">Video Theme</string>
     <string name="art">Art</string>
     <string name="nature">Nature</string>
@@ -43,7 +44,14 @@
     <string name="password">Password</string>
     <string name="register">Register</string>
     <string name="sign_in">Sign in</string>
-    <string name="error_hint_sign_up">Password must be 6 digit long, at least 1 caps, 1 number</string>
+    <string name="password_length_error">Password must be at least 5 digit long.</string>
     <string name="rate_app_now">Do you want to rate our app now?</string>
     <string name="rate_button">Rate</string>
+    <string name="is_loading">Your DayDream is loading&#8230;</string>
+    <string name="on_boarding_text">The best video and music paired on the fly.</string>
+    <string name="wrong_user">Wrong user account.</string>
+    <string name="wrong_pass">Wrong password.</string>
+    <string name="user">chaca</string>
+    <string name="pass">chaca</string>
+    <string name="xmartlabs_url">http://www.xmartlabs.com</string>
 </resources>

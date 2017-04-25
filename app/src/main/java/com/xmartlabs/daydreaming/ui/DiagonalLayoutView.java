@@ -19,10 +19,12 @@ import com.xmartlabs.daydreaming.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import lombok.Getter;
 
 /**
  * Created by chaca on 4/4/17.
  */
+@Getter
 public class DiagonalLayoutView extends LinearLayout {
   @BindView(R.id.diagonal_separator)
   DiagonalLayout diagonalSeparator;

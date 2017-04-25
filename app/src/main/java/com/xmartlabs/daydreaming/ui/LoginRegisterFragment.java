@@ -4,6 +4,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -25,7 +26,15 @@ import butterknife.OnClick;
  * Created by chaca on 4/12/17.
  */
 @FragmentWithArgs
-public class LoginRegisterFragment extends BaseFragment{
+public class LoginRegisterFragment extends BaseFragment {
+  private static final int GONE = View.GONE;
+  private static final int MIN_PASSWORD_LENGTH = 5;
+  @StringRes
+  private static final int PASSWORD = R.string.user;
+  @StringRes
+  private static final int USER = R.string.pass;
+  private static final int VISIBLE = View.VISIBLE;
+
   @BindView(R.id.background_video_view)
   VideoView backgroundVideoView;
   @BindView(R.id.create_login_textview)
@@ -66,10 +75,13 @@ public class LoginRegisterFragment extends BaseFragment{
   private void setupErrorFieldsAsInvisible() {
     passwordErrorView.setVisibility(View.GONE);
     usernameErrorView.setVisibility(View.GONE);
+    errorTextView.setVisibility(View.GONE);
+
   }
 
   @OnClick(R.id.register_text_view)
   void onClickedRegister() {
+    setupErrorFieldsAsInvisible();
     registerTextView.setTextColor(getColor(R.color.pale_teal));
     loginTextView.setTextColor(getColor(R.color.white));
     createLoginTextView.setText(getString(R.string.create_user));
@@ -78,6 +90,7 @@ public class LoginRegisterFragment extends BaseFragment{
 
   @OnClick(R.id.login_text_view)
   void onClickedLogin() {
+    setupErrorFieldsAsInvisible();
     registerTextView.setTextColor(getColor(R.color.white));
     loginTextView.setTextColor(getColor(R.color.pale_teal));
     createLoginTextView.setText(getString(R.string.sign_in));
@@ -86,17 +99,41 @@ public class LoginRegisterFragment extends BaseFragment{
 
   @OnClick(R.id.create_login_textview)
   void onClickedCreateLogin() {
-    //TODO create user and login user
+    setupErrorFieldsAsInvisible();
     if (isRegisterSelected) {
-      if (passwordFieldView.getText().toString().length() < 5) {
-        passwordErrorView.setVisibility(View.VISIBLE);
-        errorTextView.setText(getResources().getString(R.string.error_hint_sign_up));
-      }
+      checkFieldsDuringRegistration();
     } else {
-      if (!(usernameFieldView.getText().toString().toLowerCase()).equals("santi")){
-        usernameErrorView.setVisibility(View.VISIBLE);
-        errorTextView.setText("Wrong user account"); //TODO change this for the real error message
+      checkFieldsDuringLogin();
+    }
+  }
+
+  private void checkFieldsDuringLogin() {
+    //TODO make the validation through an authentication server
+    if (!(usernameFieldView.getText().toString().toLowerCase()).equals(getString(USER))) {
+      setupErrorNotification(VISIBLE, GONE, R.string.wrong_user);
+    } else {
+      if (!(passwordFieldView.getText().toString().toLowerCase()).equals(getString(PASSWORD))) {
+        setupErrorNotification(GONE, VISIBLE, R.string.wrong_pass);
+      } else {
+        getActivity().finish();
       }
+    }
+  }
+
+  private void setupErrorNotification(int userErrorVisibility, int passErrorVisibility,
+                                      @StringRes int errorText) {
+    usernameErrorView.setVisibility(userErrorVisibility);
+    passwordErrorView.setVisibility(passErrorVisibility);
+    errorTextView.setVisibility(View.VISIBLE);
+    errorTextView.setText(getString(errorText));
+  }
+
+  private void checkFieldsDuringRegistration() {
+    //TODO establish the constrains for the username and the password and create the user in the server
+    if (passwordFieldView.getText().toString().length() < MIN_PASSWORD_LENGTH) {
+      setupErrorNotification(GONE, VISIBLE, R.string.password_length_error);
+    } else {
+      getActivity().finish();
     }
   }
 

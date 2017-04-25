@@ -8,14 +8,62 @@
     android:fitsSystemWindows="true"
     >
 
-    <VideoView
-        android:id="@+id/video_player_view"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:layout_marginBottom="-40dp"
-        android:layout_marginTop="-40dp"
-        />
+        >
+
+        <VideoView
+            android:id="@+id/video_player_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_marginBottom="-40dp"
+            android:layout_marginTop="-40dp"
+            />
+
+        <RelativeLayout
+            android:id="@+id/while_waiting_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/black"
+            android:layout_marginTop="56dp"
+            >
+
+            <ImageView
+                android:id="@+id/image_while_waiting"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:alpha="0.4"
+                android:scaleType="centerCrop"
+                android:src="@drawable/sports"
+                />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/double_square_shape"
+                android:layout_centerInParent="true"
+                android:layout_marginBottom="60dp"
+                android:layout_marginEnd="19dp"
+                android:layout_marginStart="19dp"
+                android:layout_marginTop="60dp"
+                />
+
+            <TextView
+                android:id="@+id/text_while_waiting"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="85dp"
+                android:layout_marginStart="45dp"
+                android:text="@string/is_loading"
+                android:textSize="24sp"
+                />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/main_appbar"

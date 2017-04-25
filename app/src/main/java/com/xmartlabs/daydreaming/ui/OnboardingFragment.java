@@ -1,6 +1,7 @@
 package com.xmartlabs.daydreaming.ui;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
@@ -37,6 +38,8 @@ public class OnboardingFragment extends BaseFragment {
   View squareShapeView;
   @BindView(R.id.start_dreaming_view)
   TextView startDreamingView;
+  @BindView(R.id.text_in_the_shapes)
+  TextView textView;
 
   @LayoutRes
   @Override
@@ -50,6 +53,12 @@ public class OnboardingFragment extends BaseFragment {
     initializeAlphaValues();
     setupBackgroundVideo();
     setupAnimation();
+    setTextFont();
+  }
+
+  private void setTextFont() {
+    Typeface font = Typeface.createFromAsset(getActivity().getAssets(), "LibreBaskerville-Italic.otf");
+    textView.setTypeface(font);
   }
 
   @OnClick(R.id.start_dreaming_view)
@@ -74,12 +83,13 @@ public class OnboardingFragment extends BaseFragment {
     animateView(startDreamingView, 2000, 4000, VISIBLE);
     animateView(daydreamingImageView, 1000, 2000, INVISIBLE);
     animateView(squareShapeView, 2000, 3000, VISIBLE);
+    animateView(textView, 2000, 3000, VISIBLE);
   }
 
   private void initializeAlphaValues() {
-
     startDreamingView.setAlpha(INVISIBLE);
     squareShapeView.setAlpha(INVISIBLE);
+    textView.setAlpha(INVISIBLE);
   }
 
   private void animateView(View view, long durationInMs, long delayInMs, float alpha) {
@@ -88,5 +98,11 @@ public class OnboardingFragment extends BaseFragment {
         .alpha(alpha)
         .setStartDelay(delayInMs)
         .start();
+  }
+
+  @Override
+  public void onResume() {
+    super.onResume();
+    setupBackgroundVideo();
   }
 }

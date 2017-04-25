@@ -51,6 +51,19 @@
         android:layout_marginTop="40dp"
         />
 
+    <TextView
+        android:id="@+id/text_in_the_shapes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/start_dreaming_view"
+        android:layout_marginBottom="80dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginStart="50dp"
+        android:lines="2"
+        android:text="@string/on_boarding_text"
+        android:textSize="20sp"
+        />
+
     <RelativeLayout
         android:id="@+id/splash_view"
         android:layout_width="match_parent"
