@@ -2,8 +2,8 @@ package com.xmartlabs.daydreaming.controller;
 
 import android.support.annotation.CheckResult;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
-import com.annimon.stream.Stream;
 import com.xmartlabs.daydreaming.model.Video;
 import com.xmartlabs.daydreaming.service.VideoService;
 
@@ -11,6 +11,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import io.reactivex.Flowable;
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -24,7 +25,7 @@ public class VideoController extends ServiceController {
 
   @CheckResult
   @NonNull
-  private Single<List<Video>> getVideosByTheme(String theme) {
+  private Single<List<Video>> getVideosByTheme(@Nullable String theme) {
     return videoService.getVideosByTheme(theme)
         .observeOn(AndroidSchedulers.mainThread())
         .subscribeOn(Schedulers.io());
@@ -32,7 +33,7 @@ public class VideoController extends ServiceController {
 
   @CheckResult
   @NonNull
-  private Single<List<Video>> getVideosByType(String type) {
+  private Single<List<Video>> getVideosByType(@Nullable String type) {
     return videoService.getVideosByType(type)
         .observeOn(AndroidSchedulers.mainThread())
         .subscribeOn(Schedulers.io());
@@ -41,9 +42,9 @@ public class VideoController extends ServiceController {
   @CheckResult
   @NonNull
   public Single<List<Video>> getVideos(String theme, String type) {
-    return Single.zip(getVideosByTheme(theme), getVideosByType(type),
-        (videos, videos2) -> Stream.concat(Stream.of(videos).filter(video -> !videos2.contains(video)),
-            Stream.of(videos2)).toList()
-    );
+    return Single.merge(getVideosByTheme(theme), getVideosByType(type))
+        .flatMap(Flowable::fromIterable)
+        .distinct()
+        .toList();
   }
 }

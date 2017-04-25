@@ -80,7 +80,7 @@ public class TrendingScreenFragment extends BaseFragment {
         .gotoVideoActivity()
         .image(R.drawable.art)
         .theme(getString(R.string.art))
-        .type(getString(R.string.chill))
+        .type(getString(VideoType.CHILL.getDescription()))
         .build();
     startActivity(intent);
   }
@@ -92,7 +92,7 @@ public class TrendingScreenFragment extends BaseFragment {
         .gotoVideoActivity()
         .image(R.drawable.nature)
         .theme(getString(R.string.nature))
-        .type(getString(R.string.neutral))
+        .type(getString(VideoType.NEUTRAL.getDescription()))
         .build();
     startActivity(intent);
   }
@@ -104,7 +104,7 @@ public class TrendingScreenFragment extends BaseFragment {
         .gotoVideoActivity()
         .image(R.drawable.traveling)
         .theme(getString(R.string.travel))
-        .type(getString(R.string.energetic))
+        .type(getString(VideoType.ENERGETIC.getDescription()))
         .build();
     startActivity(intent);
   }
@@ -116,7 +116,7 @@ public class TrendingScreenFragment extends BaseFragment {
         .gotoVideoActivity()
         .image(R.drawable.animals)
         .theme(getString(R.string.animals))
-        .type(getString(R.string.chill))
+        .type(getString(VideoType.CHILL.getDescription()))
         .build();
     startActivity(intent);
   }
@@ -128,7 +128,7 @@ public class TrendingScreenFragment extends BaseFragment {
         .gotoVideoActivity()
         .image(R.drawable.sports)
         .theme(getString(R.string.sports))
-        .type(getString(R.string.neutral))
+        .type(getString(VideoType.NEUTRAL.getDescription()))
         .build();
     startActivity(intent);
   }
@@ -140,7 +140,7 @@ public class TrendingScreenFragment extends BaseFragment {
         .gotoVideoActivity()
         .image(R.drawable.food)
         .theme(getString(R.string.food))
-        .type(getString(R.string.energetic))
+        .type(getString(VideoType.ENERGETIC.getDescription()))
         .build();
     startActivity(intent);
   }

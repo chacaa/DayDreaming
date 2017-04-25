@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.annimon.stream.Optional;
 import com.hannesdorfmann.fragmentargs.annotation.FragmentWithArgs;
 import com.xmartlabs.daydreaming.R;
+import com.xmartlabs.daydreaming.model.Video;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -28,8 +29,6 @@ import butterknife.OnClick;
 @FragmentWithArgs
 public class CustomScreenFragment extends BaseFragment {
   private static final int MAX_SEEKBAR_PROGRESS_VALUE = 100;
-  private static final int FIRST_THIRD_VALUE = MAX_SEEKBAR_PROGRESS_VALUE / 3;
-  private static final int SECOND_THIRD_VALUE = MAX_SEEKBAR_PROGRESS_VALUE * 2 / 3;
 
   @BindView(R.id.animals_text_view)
   TextView animalsTextView;
@@ -136,11 +135,12 @@ public class CustomScreenFragment extends BaseFragment {
 
   private void reviewProgressAndSetType() {
     int progress = moodSeekBarView.getProgress();
-    if (progress < FIRST_THIRD_VALUE) {
-      type = getString(R.string.chill);
+    if (progress <= VideoType.CHILL.getMaxValue()) {
+      type = getString(VideoType.CHILL.getDescription());
     } else {
-      type = progress < SECOND_THIRD_VALUE ? getString(R.string.neutral) :
-          getString(R.string.energetic);
+      type = progress <= VideoType.NEUTRAL.getMaxValue() ?
+          getString(VideoType.NEUTRAL.getDescription()) :
+          getString(VideoType.ENERGETIC.getDescription());
     }
   }
 
